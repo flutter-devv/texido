@@ -4,32 +4,38 @@ import 'package:get/get.dart';
 import 'package:texido_app/models/table.dart';
 
 class TableController extends GetxController {
-  List<TableInfo> tables = List<TableInfo>();
+  // tables objects
+  RxList<TableInfo> tables = List<TableInfo>().obs;
+  // for the grid data
   RxList<TableInfo> tables4AM = List<TableInfo>().obs;
   RxList<TableInfo> tables5AM = List<TableInfo>().obs;
   RxList<TableInfo> tables6AM = List<TableInfo>().obs;
+  // for the tabs
   RxList<bool> selected = [true, false, false].obs;
   RxString selectedUser = "Karem Doe".obs;
   Rx<TextEditingController> searchController = TextEditingController().obs;
+  RxList<bool> colorList = List<bool>().obs;
+  // for grid searching
   RxList<TableInfo> searched4AMGuests = List<TableInfo>().obs;
   RxList<TableInfo> searched5AMGuests = List<TableInfo>().obs;
   RxList<TableInfo> searched6AMGuests = List<TableInfo>().obs;
-  RxBool searchValidator = false.obs;
+
   RxBool cancelling = false.obs;
   RxBool newReservation = false.obs;
   RxList<bool> category = [false, true, false, false, false, false].obs;
 
-  // Res.
   Rx<TextEditingController> listSearchController = TextEditingController().obs;
   RxList<TableInfo> searchedList = List<TableInfo>().obs;
   RxBool edit = false.obs;
-  RxList<bool> colorList = List<bool>().obs;
   RxInt index = 0.obs;
   Rx<DateTime> pickedDate = DateTime.now().obs;
   Rx<TimeOfDay> pickedTime = TimeOfDay.now().obs;
 
   void getTablesData() {
     tables.clear();
+    tables4AM.clear();
+    tables5AM.clear();
+    tables6AM.clear();
     String time;
     bool activated;
     int guests;
@@ -40,33 +46,33 @@ class TableController extends GetxController {
         time = "5:00 AM";
       else
         time = "6:00 AM";
-      if (i == 2 || i == 7 || i == 12 || i == 15)
-        activated = false;
-      else
-        activated = true;
       if (i > 30)
         guests = 04;
       else
         guests = 02;
+      if (i == 2 || i == 7 || i == 12 || i == 15)
+        activated = false;
+      else
+        activated = true;
       tables.add(
         TableInfo(
           member: "Golden membership",
           name: faker.person.firstName() + ' ' + faker.person.lastName(),
-          mobile: "123456789",
-          date: DateTime.now(),
-          time: time,
-          guests: guests,
+          mobile: "+966" + ' ' + faker.randomGenerator.numbers(9, 9).join(""),
+          date: DateTime.now().obs,
+          time: time.obs,
+          guests: guests.obs,
           table: i,
-          notes: ["Birthday party 🎉.", "Birthday party 🎉."],
+          notes: faker.lorem.sentences(2),
           activated: activated,
         ),
       );
     }
-    colorList.value = List.filled(tables.length, false);
+    colorList.assignAll(List.filled(tables.length, false));
     for (int i = 0; i < 50; ++i) {
-      if (tables[i].time == "4:00 AM")
+      if (tables[i].time.value == "4:00 AM")
         tables4AM.add(tables[i]);
-      else if (tables[i].time == "5:00 AM")
+      else if (tables[i].time.value == "5:00 AM")
         tables5AM.add(tables[i]);
       else
         tables6AM.add(tables[i]);
@@ -82,7 +88,7 @@ class TableController extends GetxController {
     );
     if (date != null) {
       pickedDate.value = date;
-      tables[index.value].date = pickedDate.value;
+      tables[index.value].date.value = pickedDate.value;
     }
   }
 
@@ -91,7 +97,8 @@ class TableController extends GetxController {
         context: context, initialTime: TimeOfDay(hour: 2, minute: 4));
     if (t != null) {
       pickedTime.value = t;
-      tables[index.value].time = pickedTime.value.format(context).toString();
+      tables[index.value].time.value =
+          pickedTime.value.format(context).toString();
     }
   }
 

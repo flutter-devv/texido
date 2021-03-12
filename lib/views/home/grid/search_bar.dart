@@ -14,13 +14,16 @@ class SearchBar extends StatelessWidget {
       () => Container(
         height: size * 5,
         color: darkBlueColor,
-        padding:
-            EdgeInsets.only(left: size, top: size * 1.2, bottom: size * 1.2),
+        padding: EdgeInsets.only(
+          left: size,
+          top: size * 1.2,
+          bottom: size * 1.2,
+        ),
         child: Row(
           children: [
             Expanded(
               flex: 1,
-              child: textField(
+              child: CustomField(
                 hint: "Search Guest",
                 vertical: size,
                 filled: true,
@@ -29,7 +32,6 @@ class SearchBar extends StatelessWidget {
                 prefix: Icon(Icons.search, size: size * 1.5),
                 fieldController: controller.searchController.value,
                 onChanged: (newValue) {
-                  controller.searchValidator.value = true;
                   controller.searched4AMGuests.clear();
                   controller.searched5AMGuests.clear();
                   controller.searched6AMGuests.clear();
@@ -43,9 +45,9 @@ class SearchBar extends StatelessWidget {
                         if (e.name
                             .toLowerCase()
                             .contains(newValue.toLowerCase())) {
-                          if (e.time == "4:00 AM")
+                          if (e.time.value == "4:00 AM")
                             controller.searched4AMGuests.add(e);
-                          else if (e.time == "5:00 AM")
+                          else if (e.time.value == "5:00 AM")
                             controller.searched5AMGuests.add(e);
                           else
                             controller.searched6AMGuests.add(e);
@@ -62,7 +64,7 @@ class SearchBar extends StatelessWidget {
                     return "";
                   }
                 },
-                autoValidate: controller.searchValidator.value,
+                autoValidate: true,
               ),
             ),
             SizedBox(width: size * 2),
@@ -70,41 +72,41 @@ class SearchBar extends StatelessWidget {
               flex: 2,
               child: Row(
                 children: [
-                  customButton(
+                  CustomButton(
                       label: "Arrived (5)",
-                      labelSize: e,
+                      labelSize: font2,
                       buttonColor: whiteColor,
                       labelColor: controller.selected[0]
                           ? redColor
                           : blackColor03.withOpacity(0.5),
                       onPressed: () {
-                        controller.selected.value = List.filled(3, false);
+                        controller.selected.assignAll(List.filled(3, false));
                         controller.selected[0] = true;
                         controller.getTablesData();
                       }),
                   SizedBox(width: size * 0.8),
-                  customButton(
+                  CustomButton(
                       label: "Seated (12)",
-                      labelSize: e,
+                      labelSize: font2,
                       buttonColor: whiteColor,
                       labelColor: controller.selected[1]
                           ? redColor
                           : blackColor03.withOpacity(0.5),
                       onPressed: () {
-                        controller.selected.value = List.filled(3, false);
+                        controller.selected.assignAll(List.filled(3, false));
                         controller.selected[1] = true;
                         controller.getTablesData();
                       }),
                   SizedBox(width: size * 0.8),
-                  customButton(
+                  CustomButton(
                     label: "Upcoming (3)",
-                    labelSize: e,
+                    labelSize: font2,
                     buttonColor: whiteColor,
                     labelColor: controller.selected[2]
                         ? redColor
                         : blackColor03.withOpacity(0.5),
                     onPressed: () {
-                      controller.selected.value = List.filled(3, false);
+                      controller.selected.assignAll(List.filled(3, false));
                       controller.selected[2] = true;
                       controller.getTablesData();
                     },
@@ -122,7 +124,7 @@ class SearchBar extends StatelessWidget {
                       children: [
                         RegularText(
                           text: "Reservation time",
-                          size: e,
+                          size: font2,
                           color: darkGrey03,
                         ),
                         Icon(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/controllers/qr.dart';
-import 'components.dart';
+import 'qr_body.dart';
 
 class QRScanning extends StatelessWidget {
   final controller = Get.put(QRController());

@@ -10,7 +10,7 @@ class AuthController extends GetxController {
   RxBool phoneValidate = false.obs;
   RxBool passwordValidate = false.obs;
 
-  Future<void> signIn({String phone, String password}) {
+  void signIn({String phone, String password}) {
     loading.value = true;
     Future.delayed(
       Duration(seconds: 2),
@@ -34,7 +34,7 @@ class AuthController extends GetxController {
     );
   }
 
-  Future<void> forgotPassword(String phone) {
+  void forgotPassword(String phone) {
     loading.value = true;
     Future.delayed(
       Duration(seconds: 2),

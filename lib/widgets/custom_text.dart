@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:texido_app/constants/app_constants.dart';
 
 class SemiBoldText extends StatelessWidget {
-  String text;
-  double size;
-  Color color = blueGrey;
-  SemiBoldText({this.text, this.size, this.color});
+  final String text;
+  final double size;
+  final Color color;
+  SemiBoldText({
+    this.text,
+    this.size,
+    this.color = blueGrey,
+  });
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -21,10 +25,14 @@ class SemiBoldText extends StatelessWidget {
 }
 
 class MediumText extends StatelessWidget {
-  String text;
-  double size;
-  Color color = blueGrey;
-  MediumText({this.text, this.size, this.color});
+  final String text;
+  final double size;
+  final Color color;
+  MediumText({
+    this.text,
+    this.size,
+    this.color = blueGrey,
+  });
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -40,10 +48,14 @@ class MediumText extends StatelessWidget {
 }
 
 class RegularText extends StatelessWidget {
-  String text;
-  double size;
-  Color color = blackColor;
-  RegularText({this.text, this.size, this.color});
+  final String text;
+  final double size;
+  final Color color;
+  RegularText({
+    this.text,
+    this.size,
+    this.color = blackColor,
+  });
   @override
   Widget build(BuildContext context) {
     return Text(

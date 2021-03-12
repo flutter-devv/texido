@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/controllers/member.dart';
-import 'components.dart';
+import 'add_member/add_member.dart';
+import 'member_list.dart';
+import 'search_bar.dart';
 
 class Member extends StatelessWidget {
   final controller = Get.put(MemberController());
@@ -20,10 +22,10 @@ class Member extends StatelessWidget {
                   Expanded(
                     flex: 4,
                     child: controller.searchedMembers.isEmpty
-                        ? Members(controller.members)
+                        ? MemberList(controller.members)
                         : controller.members.isEmpty
                             ? Center(child: Text("No Results"))
-                            : Members(controller.searchedMembers),
+                            : MemberList(controller.searchedMembers),
                   ),
                   SizedBox(width: size),
                   Expanded(

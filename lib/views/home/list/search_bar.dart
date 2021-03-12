@@ -17,7 +17,7 @@ class SearchBar extends StatelessWidget {
         children: [
           Expanded(
             flex: 1,
-            child: textField(
+            child: CustomField(
               hint: "Search Guest",
               vertical: size,
               filled: true,
@@ -26,7 +26,6 @@ class SearchBar extends StatelessWidget {
               prefix: Icon(Icons.search, size: size * 1.5),
               fieldController: controller.listSearchController.value,
               onChanged: (newValue) {
-                controller.searchValidator.value = true;
                 controller.searchedList.clear();
                 if (newValue == "")
                   controller.searchedList.value.clear();
@@ -42,7 +41,7 @@ class SearchBar extends StatelessWidget {
                   return "";
                 }
               },
-              autoValidate: controller.searchValidator.value,
+              autoValidate: true,
             ),
           ),
           SizedBox(width: size * 2),
@@ -51,41 +50,41 @@ class SearchBar extends StatelessWidget {
             child: Obx(
               () => Row(
                 children: [
-                  customButton(
+                  CustomButton(
                       label: "Arrived (5)",
-                      labelSize: e,
+                      labelSize: font2,
                       buttonColor: whiteColor,
                       labelColor: controller.selected[0]
                           ? redColor
                           : blackColor03.withOpacity(0.5),
                       onPressed: () {
-                        controller.selected.value = List.filled(3, false);
+                        controller.selected.assignAll(List.filled(3, false));
                         controller.selected[0] = true;
                         controller.getTablesData();
                       }),
                   SizedBox(width: size * 0.8),
-                  customButton(
+                  CustomButton(
                       label: "Seated (12)",
-                      labelSize: e,
+                      labelSize: font2,
                       buttonColor: whiteColor,
                       labelColor: controller.selected[1]
                           ? redColor
                           : blackColor03.withOpacity(0.5),
                       onPressed: () {
-                        controller.selected.value = List.filled(3, false);
+                        controller.selected.assignAll(List.filled(3, false));
                         controller.selected[1] = true;
                         controller.getTablesData();
                       }),
                   SizedBox(width: size * 0.8),
-                  customButton(
+                  CustomButton(
                     label: "Upcoming (3)",
-                    labelSize: e,
+                    labelSize: font2,
                     buttonColor: whiteColor,
                     labelColor: controller.selected[2]
                         ? redColor
                         : blackColor03.withOpacity(0.5),
                     onPressed: () {
-                      controller.selected.value = List.filled(3, false);
+                      controller.selected.assignAll(List.filled(3, false));
                       controller.selected[2] = true;
                       controller.getTablesData();
                     },

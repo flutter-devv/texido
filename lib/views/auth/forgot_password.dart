@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/widgets/custom_text.dart';
-import 'components.dart';
+import 'app_logo.dart';
+import 'auth_button.dart';
+import 'go_back.dart';
+import 'phone_field.dart';
 
-// ignore: must_be_immutable
 class ForgotPassword extends StatelessWidget {
-  TextEditingController phoneController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final GlobalKey _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -22,9 +24,9 @@ class ForgotPassword extends StatelessWidget {
               SizedBox(height: size * 2),
               AppLogo(),
               SizedBox(height: size * 4),
-              MediumText(text: "Forgot Password", size: d),
+              MediumText(text: "Forgot Password", size: font6),
               SizedBox(height: size * 1.5),
-              AuthFields().phoneField(phoneController),
+              PhoneField(phoneController),
               SizedBox(height: size * 1.5),
               authButton(
                 label: "SUBMIT",

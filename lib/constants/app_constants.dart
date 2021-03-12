@@ -46,17 +46,18 @@ const Color greyColor04 = Color(0xffC1C1C1);
 const Color greyColor05 = Color(0xff7E7E7E);
 const Color greyColor06 = Color(0xff3B434E);
 const Color greyColor07 = Color(0xff707070);
-const Color hintColor = Color(0xff8EAABE);
-const Color hintColor2 = Color(0xffA2A2A2);
+const Color hintColor01 = Color(0xff8EAABE);
+const Color hintColor02 = Color(0xffA2A2A2);
 
 // app vairables
 double size = SizeConfig.defaultSize;
-double a = size * 0.7;
-double b = size * 0.8;
-double c = size * 0.9;
-double d = size;
-double e = size * 0.6;
-double f = size * 0.5;
+
+double font1 = size * 0.5;
+double font2 = size * 0.6;
+double font3 = size * 0.7;
+double font4 = size * 0.8;
+double font5 = size * 0.9;
+double font6 = size;
 
 // app pages
 List<GetPage> getPages() {

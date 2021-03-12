@@ -1,66 +1,92 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
-import 'package:texido_app/constants/asset_path.dart';
 import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/views/home/grid/grid.dart';
-import 'package:texido_app/views/home/table_item.dart';
-import 'components.dart';
+import 'custom_app_bar.dart';
+import 'tap_item.dart';
 import 'floor/floor.dart';
-import 'list/list_screen.dart';
+import 'list/list.dart';
 import 'member/member.dart';
 
 class HomeScreen extends StatelessWidget {
+  final controller = Get.put(TableController());
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(TableController());
-    return Obx(
-      () => Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: appBar(),
-        body: Stack(
-          children: [
-            Container(
-              width: size * 5.5,
-              color: whiteColor,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      tapItem("Floor", tap1, 0),
-                      tapItem("Res.", tap2, 1),
-                      tapItem("Grid", tap3, 2),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      tapItem("Members", tap4, 3),
-                      tapItem("Reports", tap6, 5),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Row(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          CustomAppBar(),
+          Expanded(
+            child: Row(
               children: [
-                Container(width: size * 5.5),
-                VerticalDivider(width: 0.0),
-                Expanded(
-                  child: controller.category[1] == true
-                      ? ListScreen()
-                      : controller.category[2] == true
-                          ? GridScreen()
-                          : controller.category[3] == true
-                              ? Member()
-                              : controller.category[0] == true
-                                  ? FloorScreen()
-                                  : Center(child: Text("Under Development")),
+                Container(
+                  width: size * 5.5,
+                  color: whiteColor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          TapItem(
+                            label: "Floor",
+                            icon: tap1,
+                            index: 0,
+                          ),
+                          TapItem(
+                            label: "Res.",
+                            icon: tap2,
+                            index: 1,
+                          ),
+                          TapItem(
+                            label: "Grid",
+                            icon: tap3,
+                            index: 2,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          TapItem(
+                            label: "Members",
+                            icon: tap4,
+                            index: 3,
+                          ),
+                          TapItem(
+                            label: "Reports",
+                            icon: tap6,
+                            index: 5,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
+                Expanded(
+                  child: Row(
+                    children: [
+                      VerticalDivider(width: 0.0),
+                      Expanded(
+                          child: Obx(
+                        () => controller.category[1] == true
+                            ? ListScreen()
+                            : controller.category[2] == true
+                                ? GridScreen()
+                                : controller.category[3] == true
+                                    ? Member()
+                                    : controller.category[0] == true
+                                        ? FloorScreen()
+                                        : Center(
+                                            child: Text("Under Development")),
+                      )),
+                    ],
+                  ),
+                )
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

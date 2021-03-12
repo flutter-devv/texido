@@ -3,13 +3,16 @@ import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/controllers/auth.dart';
 import 'package:texido_app/widgets/custom_text.dart';
-import 'components.dart';
+import 'app_logo.dart';
+import 'auth_button.dart';
+import 'bottom.dart';
+import 'password_field.dart';
+import 'phone_field.dart';
 
-// ignore: must_be_immutable
 class SignIn extends StatelessWidget {
   final controller = Get.put(AuthController());
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final GlobalKey _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -27,14 +30,13 @@ class SignIn extends StatelessWidget {
                 SizedBox(height: size * 2),
                 AppLogo(),
                 SizedBox(height: size * 2),
-                MediumText(text: "Sign In", size: d),
+                MediumText(text: "Sign In", size: font6),
                 SizedBox(height: size * 1.5),
-                AuthFields(
-                  phoneController: phoneController,
-                  passwordController: passwordController,
-                ),
+                PhoneField(phoneController),
+                SizedBox(height: size * 1.5),
+                PasswordField(passwordController),
                 SizedBox(height: size * 0.5),
-                ForgotPassword(),
+                Bottom(),
                 SizedBox(height: size),
                 authButton(
                   label: "SIGN IN",

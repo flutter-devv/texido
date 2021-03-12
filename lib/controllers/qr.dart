@@ -26,7 +26,11 @@ class QRController extends GetxController {
             CircleAvatar(
               radius: size * 1.8,
               backgroundColor: redColor,
-              child: Icon(Icons.close, color: whiteColor, size: size * 1.3),
+              child: Icon(
+                Icons.close,
+                color: whiteColor,
+                size: size * 1.3,
+              ),
             ),
             SizedBox(height: size),
             MediumText(

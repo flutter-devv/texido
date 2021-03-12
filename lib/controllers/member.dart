@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -16,7 +14,7 @@ class MemberController extends GetxController {
   RxBool addMember = false.obs;
   RxBool searchValidator = false.obs;
   RxString imagePath = "".obs;
-  Rx<DateTime> selectedDate = DateTime(2030, 1, 1).obs;
+  Rx<DateTime> selectedDate = DateTime(0, 0, 0).obs;
   final picker = ImagePicker();
 
   // fields controllers
@@ -27,7 +25,7 @@ class MemberController extends GetxController {
   TextEditingController noteController = TextEditingController();
   TextEditingController searchController = TextEditingController();
 
-  Future<void> getMemberData() {
+  void getMemberData() {
     for (int i = 0; i < 10; ++i) {
       members.add(
         MemberInfo(

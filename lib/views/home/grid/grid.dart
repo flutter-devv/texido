@@ -4,7 +4,7 @@ import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 import 'search_bar.dart';
-import 'grid_item.dart';
+import 'grid_list.dart';
 
 class GridScreen extends StatelessWidget {
   final controller = Get.find<TableController>();
@@ -25,14 +25,14 @@ class GridScreen extends StatelessWidget {
                         SizedBox(height: size * 0.5),
                         RegularText(
                           text: "4:00 AM",
-                          size: a,
+                          size: font3,
                           color: greyColor07,
                         ),
                         SizedBox(height: size * 0.5),
                         Expanded(
                           child: controller.searched4AMGuests.isEmpty
-                              ? GridItem(controller.tables4AM)
-                              : GridItem(controller.searched4AMGuests),
+                              ? GridList(controller.tables4AM)
+                              : GridList(controller.searched4AMGuests),
                         ),
                       ],
                     ),
@@ -44,14 +44,14 @@ class GridScreen extends StatelessWidget {
                         SizedBox(height: size * 0.5),
                         RegularText(
                           text: "5:00 AM",
-                          size: a,
+                          size: font3,
                           color: greyColor07,
                         ),
                         SizedBox(height: size * 0.5),
                         Expanded(
                           child: controller.searched5AMGuests.isEmpty
-                              ? GridItem(controller.tables5AM)
-                              : GridItem(controller.searched5AMGuests),
+                              ? GridList(controller.tables5AM)
+                              : GridList(controller.searched5AMGuests),
                         ),
                       ],
                     ),
@@ -63,14 +63,14 @@ class GridScreen extends StatelessWidget {
                         SizedBox(height: size * 0.5),
                         RegularText(
                           text: "6:00 AM",
-                          size: a,
+                          size: font3,
                           color: greyColor07,
                         ),
                         SizedBox(height: size * 0.5),
                         Expanded(
                           child: controller.searched6AMGuests.isEmpty
-                              ? GridItem(controller.tables6AM)
-                              : GridItem(controller.searched6AMGuests),
+                              ? GridList(controller.tables6AM)
+                              : GridList(controller.searched6AMGuests),
                         ),
                       ],
                     ),

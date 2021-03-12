@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:texido_app/constants/app_constants.dart';
-import 'package:texido_app/constants/asset_path.dart';
+import 'package:texido_app/constants/asset_constants.dart';
 import 'package:texido_app/models/member.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 
@@ -48,7 +48,7 @@ class MemberItem extends StatelessWidget {
               children: [
                 RegularText(
                   text: '${member.firstName} ${member.lastName}',
-                  size: e,
+                  size: font2,
                   color: darkGrey01,
                 ),
                 SizedBox(height: size * 0.5),
@@ -61,7 +61,7 @@ class MemberItem extends StatelessWidget {
                         SizedBox(width: size * 0.5),
                         RegularText(
                           text: '+966 ${member.phone}',
-                          size: e,
+                          size: font2,
                           color: darkGrey01,
                         ),
                       ],
@@ -73,7 +73,7 @@ class MemberItem extends StatelessWidget {
                         SizedBox(width: size * 0.5),
                         RegularText(
                           text: member.membership,
-                          size: e,
+                          size: font2,
                           color: darkGrey01,
                         ),
                       ],

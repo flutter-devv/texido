@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/widgets/custom_text.dart';
-import 'components.dart';
+import 'confirm_button.dart';
+import 'scanning_data.dart';
+import 'user_image.dart';
+import 'user_info.dart';
 
 class QRVerified extends StatelessWidget {
   @override
@@ -16,7 +18,7 @@ class QRVerified extends StatelessWidget {
           children: [
             SemiBoldText(
               text: "Member Reservation confirmed",
-              size: c,
+              size: font5,
               color: whiteColor,
             ),
             SizedBox(height: size * 3),
@@ -33,14 +35,23 @@ class QRVerified extends StatelessWidget {
                       color: whiteColor,
                       child: Column(
                         children: [
-                          UserInfo(),
+                          UserInfo(
+                            userName: "Saleem Salman",
+                            userPhone: "+976 123456789",
+                            membership: "Gold",
+                          ),
                           SizedBox(height: size),
-                          ScanningData(),
+                          ScanningData(
+                            tableNumber: "45",
+                            peopleNumber: "2",
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  UserImage(),
+                  UserImage(
+                    "https://dq1eylutsoz4u.cloudfront.net/2016/12/07190305/not-so-nice-nice-guy.jpg",
+                  ),
                 ],
               ),
             ),
