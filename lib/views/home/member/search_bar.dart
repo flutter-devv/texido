@@ -33,12 +33,14 @@ class SearchBar extends StatelessWidget {
                     prefix: Icon(Icons.search, size: size * 1.5),
                     fieldController: controller.searchController,
                     onChanged: (newValue) {
-                      controller.searchValidator.value = true;
+                      print("new value: $newValue");
                       controller.searchedMembers.clear();
                       if (newValue == "")
                         controller.searchedMembers.clear();
                       else {
+                        print("yes");
                         controller.members.forEach((e) {
+                          print("name: ${e.firstName} ${e.lastName}");
                           if ('${e.firstName} ${e.lastName}'
                               .toLowerCase()
                               .contains(newValue.toLowerCase()))
@@ -47,18 +49,23 @@ class SearchBar extends StatelessWidget {
                       }
                     },
                     validate: (newValue) {
+                      print("cc :${controller.searchedMembers.length}");
                       if (controller.searchedMembers.isEmpty &&
                           newValue != "") {
+                        //   controller.searchedMembers.value.clear();
                         return "";
                       }
                     },
-                    autoValidate: controller.searchValidator.value,
+                    autoValidate: true,
                   ),
                 ),
                 SizedBox(width: size),
                 CustomButton(
                   label: "+  Add",
-                  onPressed: () => controller.addMember.value = true,
+                  onPressed: () {
+                    controller.addMember.value = true;
+                    controller.viewMember.value = false;
+                  },
                   buttonColor: greenColor,
                   height: Get.height,
                   labelSize: font3,

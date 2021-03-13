@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
+import 'package:texido_app/constants/asset_constants.dart';
 import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/views/qr/qr_scanning/qr_scanning.dart';
 import 'package:texido_app/widgets/custom_button.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 
-class CustomAppBar extends StatelessWidget {
+class HomeBar extends StatelessWidget {
   final controller = Get.find<TableController>();
   final List<String> items = ["Karem Doe", "Samer Doe", "Faris Doe"];
   @override
@@ -23,14 +24,16 @@ class CustomAppBar extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset(tuxedo, width: size * 5.5, fit: BoxFit.cover),
+                Image.asset(AppAssets.tuxedo,
+                    width: size * 5.5, fit: BoxFit.cover),
                 Row(
                   children: [
-                    SvgPicture.asset(notification, height: size * 1.2),
+                    SvgPicture.asset(AppAssets.notification,
+                        height: size * 1.2),
                     Align(
                       alignment: Alignment.center,
                       child: FlatButton(
-                        child: SvgPicture.asset(qrIcon, height: size),
+                        child: SvgPicture.asset(AppAssets.qrIcon, height: size),
                         color: blueGrey2.withOpacity(0.2),
                         height: size * 2.2,
                         minWidth: size * 2,
@@ -106,7 +109,8 @@ class CustomAppBar extends StatelessWidget {
             ),
             child: Row(
               children: [
-                SvgPicture.asset(calendar, color: redColor, height: size * 1.2),
+                SvgPicture.asset(AppAssets.calendar,
+                    color: redColor, height: size * 1.2),
                 SizedBox(width: size * 0.5),
                 RegularText(
                   text: "Tue Jan 2021",

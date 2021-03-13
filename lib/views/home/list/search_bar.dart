@@ -60,7 +60,7 @@ class SearchBar extends StatelessWidget {
                       onPressed: () {
                         controller.selected.assignAll(List.filled(3, false));
                         controller.selected[0] = true;
-                        controller.getTablesData();
+                        controller.getTablesData(context);
                       }),
                   SizedBox(width: size * 0.8),
                   CustomButton(
@@ -73,7 +73,7 @@ class SearchBar extends StatelessWidget {
                       onPressed: () {
                         controller.selected.assignAll(List.filled(3, false));
                         controller.selected[1] = true;
-                        controller.getTablesData();
+                        controller.getTablesData(context);
                       }),
                   SizedBox(width: size * 0.8),
                   CustomButton(
@@ -86,7 +86,7 @@ class SearchBar extends StatelessWidget {
                     onPressed: () {
                       controller.selected.assignAll(List.filled(3, false));
                       controller.selected[2] = true;
-                      controller.getTablesData();
+                      controller.getTablesData(context);
                     },
                   ),
                 ],

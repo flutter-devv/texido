@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
+import 'package:texido_app/controllers/grid.dart';
 import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/widgets/custom_button.dart';
 import 'package:texido_app/widgets/custom_field.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 
 class SearchBar extends StatelessWidget {
-  final controller = Get.find<TableController>();
+  final tableController = Get.find<TableController>();
+  final gridController = Get.find<GridController>();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -30,36 +32,32 @@ class SearchBar extends StatelessWidget {
                 errorText: true,
                 filledColor: whiteColor,
                 prefix: Icon(Icons.search, size: size * 1.5),
-                fieldController: controller.searchController.value,
+                fieldController: gridController.searchController,
                 onChanged: (newValue) {
-                  controller.searched4AMGuests.clear();
-                  controller.searched5AMGuests.clear();
-                  controller.searched6AMGuests.clear();
+                  gridController.clearSearchedData();
                   if (newValue == "") {
-                    controller.searched4AMGuests.clear();
-                    controller.searched5AMGuests.clear();
-                    controller.searched6AMGuests.clear();
+                    gridController.clearSearchedData();
                   } else {
-                    controller.tables.forEach(
+                    tableController.tables.forEach(
                       (e) {
                         if (e.name
                             .toLowerCase()
                             .contains(newValue.toLowerCase())) {
                           if (e.time.value == "4:00 AM")
-                            controller.searched4AMGuests.add(e);
+                            gridController.searched4AMGuests.add(e);
                           else if (e.time.value == "5:00 AM")
-                            controller.searched5AMGuests.add(e);
+                            gridController.searched5AMGuests.add(e);
                           else
-                            controller.searched6AMGuests.add(e);
+                            gridController.searched6AMGuests.add(e);
                         }
                       },
                     );
                   }
                 },
                 validate: (newValue) {
-                  if (controller.searched4AMGuests.isEmpty &&
-                      controller.searched5AMGuests.isEmpty &&
-                      controller.searched6AMGuests.isEmpty &&
+                  if (gridController.searched4AMGuests.isEmpty &&
+                      gridController.searched5AMGuests.isEmpty &&
+                      gridController.searched6AMGuests.isEmpty &&
                       newValue != "") {
                     return "";
                   }
@@ -76,39 +74,42 @@ class SearchBar extends StatelessWidget {
                       label: "Arrived (5)",
                       labelSize: font2,
                       buttonColor: whiteColor,
-                      labelColor: controller.selected[0]
+                      labelColor: gridController.selectedTap[0]
                           ? redColor
                           : blackColor03.withOpacity(0.5),
                       onPressed: () {
-                        controller.selected.assignAll(List.filled(3, false));
-                        controller.selected[0] = true;
-                        controller.getTablesData();
+                        gridController.selectedTap
+                            .assignAll(List.filled(3, false));
+                        gridController.selectedTap[0] = true;
+                        gridController.getGridData();
                       }),
                   SizedBox(width: size * 0.8),
                   CustomButton(
                       label: "Seated (12)",
                       labelSize: font2,
                       buttonColor: whiteColor,
-                      labelColor: controller.selected[1]
+                      labelColor: gridController.selectedTap[1]
                           ? redColor
                           : blackColor03.withOpacity(0.5),
                       onPressed: () {
-                        controller.selected.assignAll(List.filled(3, false));
-                        controller.selected[1] = true;
-                        controller.getTablesData();
+                        gridController.selectedTap
+                            .assignAll(List.filled(3, false));
+                        gridController.selectedTap[1] = true;
+                        gridController.getGridData();
                       }),
                   SizedBox(width: size * 0.8),
                   CustomButton(
                     label: "Upcoming (3)",
                     labelSize: font2,
                     buttonColor: whiteColor,
-                    labelColor: controller.selected[2]
+                    labelColor: gridController.selectedTap[2]
                         ? redColor
                         : blackColor03.withOpacity(0.5),
                     onPressed: () {
-                      controller.selected.assignAll(List.filled(3, false));
-                      controller.selected[2] = true;
-                      controller.getTablesData();
+                      gridController.selectedTap
+                          .assignAll(List.filled(3, false));
+                      gridController.selectedTap[2] = true;
+                      gridController.getGridData();
                     },
                   ),
                   SizedBox(width: size * 0.8),

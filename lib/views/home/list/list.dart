@@ -57,12 +57,13 @@ class ListScreen extends StatelessWidget {
                     child: controller.edit.value
                         ? EditReservation(
                             table: controller.tables[controller.index.value],
-                            isFloor: false,
+                            forDialog: false,
                           )
                         : controller.newReservation.value
                             ? NewReservation()
                             : ReservationDetails(
-                                item: controller.tables[controller.index.value],
+                                table:
+                                    controller.tables[controller.index.value],
                                 index: controller.index.value,
                               ),
                   ),

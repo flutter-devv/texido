@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SizeConfig {
+class AppSizes {
   static double screenWidth;
   static double screenHeight;
   static double defaultSize;

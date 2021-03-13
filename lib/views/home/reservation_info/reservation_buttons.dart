@@ -7,18 +7,19 @@ import 'package:texido_app/widgets/custom_button.dart';
 
 class ReservationButtons extends StatelessWidget {
   final TableInfo table;
-  final String name;
-  final String mobile;
-  final bool isFloor;
+  final String buttonLabel;
+  final int tableIndex;
+  final bool forDialog;
   ReservationButtons({
     this.table,
-    this.name,
-    this.mobile,
-    this.isFloor,
+    this.buttonLabel,
+    this.tableIndex,
+    this.forDialog = false,
   });
   final controller = Get.find<TableController>();
   @override
   Widget build(BuildContext context) {
+    // print("tableee: ${table.guests}");
     return Container(
       height: size * 3.2,
       decoration: BoxDecoration(color: Color(0xffF4F4F5)),
@@ -31,7 +32,7 @@ class ReservationButtons extends StatelessWidget {
             borderColor: darkGrey03,
             labelSize: font2,
             onPressed: () {
-              if (isFloor)
+              if (forDialog)
                 Get.close(1);
               else
                 controller.edit.value = false;
@@ -40,23 +41,32 @@ class ReservationButtons extends StatelessWidget {
           ),
           SizedBox(width: size * 0.5),
           CustomButton(
-              label: "Save",
+              label: buttonLabel,
               labelColor: whiteColor,
               buttonColor: greenColor,
               labelSize: font2,
               onPressed: () {
-                controller.tables[controller.index.value] = TableInfo(
-                  member: "Golden membership",
-                  name: name,
-                  mobile: mobile.substring(4),
-                  date: table.date,
-                  time: table.time,
-                  guests: table.guests,
-                  table: table.table,
-                  notes: ["Birthday party"],
-                  activated: table.activated,
+                controller.tables[tableIndex] = TableInfo(
+                  member: controller.tables[tableIndex].member,
+                  name: controller.nameController.text,
+                  mobile: controller.mobileController.text,
+                  date: controller.tables[tableIndex].date,
+                  time: controller.tables[tableIndex].time,
+                  guests: controller.tables[tableIndex].guests,
+                  notes: [controller.noteController.text],
                 );
-                if (isFloor)
+                // controller.tables[tableIndex] = TableInfo(
+                //   member: "Golden membership",
+                //   name: table.name,
+                //   mobile: table.mobile.substring(4),
+                //   date: table.date,
+                //   time: table.time,
+                //   guests: table.guests,
+                //   table: table.table,
+                //   notes: ["Birthday party"],
+                //   activated: table.activated,
+                // );
+                if (forDialog)
                   Get.close(1);
                 else
                   controller.edit.value = false;

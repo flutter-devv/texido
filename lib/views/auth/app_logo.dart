@@ -12,7 +12,7 @@ class AppLogo extends StatelessWidget {
       child: Column(
         children: [
           SvgPicture.asset(
-            splash,
+            AppAssets.splash,
             height: size * 8,
           ),
           SizedBox(height: size),

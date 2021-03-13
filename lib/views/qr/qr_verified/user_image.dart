@@ -20,7 +20,7 @@ class UserImage extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            child: SvgPicture.asset(check, height: size * 1.3),
+            child: SvgPicture.asset(AppAssets.check, height: size * 1.3),
             right: 0.0,
             top: 0.0,
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
+import 'package:texido_app/constants/asset_constants.dart';
 import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 
@@ -52,7 +53,7 @@ class ReservationTables extends StatelessWidget {
                 Row(
                   children: [
                     SvgPicture.asset(
-                      tap4,
+                      AppAssets.tap4,
                       height: size * 0.9,
                       color: color,
                     ),

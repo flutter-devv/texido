@@ -1,6 +1,6 @@
 import 'package:texido_app/config/sizes.dart';
 
-final double size = SizeConfig.defaultSize;
+final double size = AppSizes.defaultSize;
 
 class AppFonts {
   static double font1 = size * 0.5;

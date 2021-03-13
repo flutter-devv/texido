@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 
-class BuildItem extends StatelessWidget {
+class ReservationItem extends StatelessWidget {
   final String label;
   final dynamic value;
-  BuildItem({
+  ReservationItem({
     this.label,
     this.value,
   });

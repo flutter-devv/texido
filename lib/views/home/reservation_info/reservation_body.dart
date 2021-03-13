@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:texido_app/constants/asset_constants.dart';
 import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/models/table.dart';
 import 'package:texido_app/widgets/custom_field.dart';
@@ -10,10 +11,11 @@ import 'package:texido_app/constants/app_constants.dart';
 
 class ReservationBody extends StatelessWidget {
   final TableInfo table;
-  ReservationBody({this.table});
-  TextEditingController nameController = TextEditingController();
-  TextEditingController mobileController = TextEditingController();
-  TextEditingController noteController = TextEditingController();
+  final int tableIndex;
+  ReservationBody({
+    this.table,
+    this.tableIndex,
+  });
   final List<String> labels = [
     "Member",
     "Name",
@@ -41,9 +43,11 @@ class ReservationBody extends StatelessWidget {
   final controller = Get.find<TableController>();
   @override
   Widget build(BuildContext context) {
-    nameController = TextEditingController(text: table.name);
-    mobileController = TextEditingController(text: "+966 ${table.mobile}");
-    noteController = TextEditingController(text: table.notes[0]);
+    controller.nameController = TextEditingController(text: table.name);
+    controller.mobileController =
+        TextEditingController(text: "${table.mobile}");
+    controller.noteController = TextEditingController(text: table.notes[0]);
+    List<TableInfo> tables = controller.tables;
     return Container(
       height: Get.height / 1.5,
       color: whiteColor,
@@ -69,7 +73,7 @@ class ReservationBody extends StatelessWidget {
                   ReservationItem(
                     label: labels[1],
                     child: CustomField(
-                      fieldController: nameController,
+                      fieldController: controller.nameController,
                       filled: true,
                       filledColor: greyColor03,
                       autoValidate: false,
@@ -77,12 +81,13 @@ class ReservationBody extends StatelessWidget {
                       hintSize: font2,
                       hintColor: Color(0xffA2A2A2).withOpacity(0.4),
                       borderColor: Colors.transparent,
+                      onChanged: null,
                     ),
                   ),
                   ReservationItem(
                     label: labels[2],
                     child: CustomField(
-                      fieldController: mobileController,
+                      fieldController: controller.mobileController,
                       filled: true,
                       filledColor: greyColor03,
                       autoValidate: false,
@@ -99,6 +104,7 @@ class ReservationBody extends StatelessWidget {
                         await controller.pickDate(
                           context,
                           table.date.value,
+                          tableIndex,
                         );
                       },
                       child: Container(
@@ -112,13 +118,18 @@ class ReservationBody extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            RegularText(
-                              text:
-                                  "${table.date.value.day} ${months[table.date.value.month]} ${table.date.value.year}",
-                              color: greyColor06,
-                              size: font1,
+                            Obx(
+                              () => RegularText(
+                                text:
+                                    "${controller.tables[tableIndex].date.value.day}"
+                                    " ${months[controller.tables[tableIndex].date.value.month]} "
+                                    "${controller.tables[tableIndex].date.value.year}",
+                                color: greyColor06,
+                                size: font1,
+                              ),
                             ),
-                            SvgPicture.asset(calendar, height: size * 1.1),
+                            SvgPicture.asset(AppAssets.calendar,
+                                height: size * 1.1),
                           ],
                         ),
                       ),
@@ -128,7 +139,7 @@ class ReservationBody extends StatelessWidget {
                     label: labels[4],
                     child: GestureDetector(
                       onTap: () async {
-                        await controller.pickTime(context);
+                        await controller.pickTime(context, tableIndex);
                       },
                       child: Container(
                         height: size * 2.3,
@@ -141,12 +152,14 @@ class ReservationBody extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            RegularText(
-                              text: table.time.value,
-                              color: greyColor06,
-                              size: font1,
+                            Obx(
+                              () => RegularText(
+                                text: controller.tables[tableIndex].time.value,
+                                color: greyColor06,
+                                size: font1,
+                              ),
                             ),
-                            SvgPicture.asset(clock,
+                            SvgPicture.asset(AppAssets.clock,
                                 height: size * 1.1, color: greyColor06),
                           ],
                         ),
@@ -166,27 +179,31 @@ class ReservationBody extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          RegularText(
-                            text: table.guests.toString(),
-                            color: greyColor06,
-                            size: font1,
+                          Obx(
+                            () => RegularText(
+                              text: table.guests.toString(),
+                              color: greyColor06,
+                              size: font1,
+                            ),
                           ),
                           Row(
                             children: [
                               GestureDetector(
-                                child: SvgPicture.asset(minus,
+                                child: SvgPicture.asset(AppAssets.minus,
                                     height: size * 1.1, color: greyColor06),
                                 onTap: () {
-                                  if (table.guests > 1) table.guests--;
+                                  if (table.guests > 1)
+                                    controller
+                                        .tables[tableIndex].guests.value--;
                                 },
                               ),
                               SizedBox(width: size * 0.5),
                               GestureDetector(
-                                  child: SvgPicture.asset(plus,
+                                  child: SvgPicture.asset(AppAssets.plus,
                                       height: size * 1.1, color: greyColor06),
                                   onTap: () {
-                                    controller.tables[controller.index.value]
-                                        .guests++;
+                                    controller
+                                        .tables[tableIndex].guests.value++;
                                   }),
                             ],
                           ),
@@ -200,7 +217,7 @@ class ReservationBody extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: RegularText(
-                        text: "Table $table",
+                        text: "Table ${table.table}",
                         size: font1,
                         color: greyColor06,
                       ),
@@ -210,7 +227,7 @@ class ReservationBody extends StatelessWidget {
                   ReservationItem(
                     label: labels[6],
                     child: CustomField(
-                      fieldController: noteController,
+                      fieldController: controller.noteController,
                       autoValidate: false,
                       vertical: size,
                       hintSize: font2,
@@ -228,61 +245,53 @@ class ReservationBody extends StatelessWidget {
                 color: Color(0xffF4F4F5).withOpacity(0.4),
                 padding: EdgeInsets.only(top: size, left: size * 0.5),
                 child: ListView.builder(
-                  itemCount: deactivatedTables.length,
+                  itemCount: tables.length,
                   physics: BouncingScrollPhysics(),
                   padding: EdgeInsets.symmetric(horizontal: size * 0.5),
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.only(bottom: size),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            table = deactivatedTables[index].table;
-                          });
-                        },
-                        child: Container(
-                          child: Row(
-                            children: [
-                              Container(
-                                height: size * 1.8,
-                                width: size * 3.5,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: greenColor.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(3.0),
-                                ),
-                                child: SemiBoldText(
-                                  text: "TA-${deactivatedTables[index].table}",
-                                  size: font1,
-                                  color: greenColor,
-                                ),
+                      child: Container(
+                        child: Row(
+                          children: [
+                            Container(
+                              height: size * 1.8,
+                              width: size * 3.5,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: greenColor.withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(3.0),
                               ),
-                              SizedBox(width: size * 0.5),
-                              MediumText(
-                                text: "Available",
+                              child: SemiBoldText(
+                                text: "TA-${tables[index].table}",
                                 size: font1,
                                 color: greenColor,
                               ),
-                              Spacer(),
-                              Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    tap4,
-                                    height: size * 0.9,
-                                    color: greenColor,
-                                  ),
-                                  SizedBox(width: size * 0.5),
-                                  MediumText(
-                                    text: deactivatedTables[index].guests <= 2
-                                        ? "1-2"
-                                        : "3-4",
-                                    size: font1,
-                                    color: greenColor,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                            ),
+                            SizedBox(width: size * 0.5),
+                            MediumText(
+                              text: "Available",
+                              size: font1,
+                              color: greenColor,
+                            ),
+                            Spacer(),
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  AppAssets.tap4,
+                                  height: size * 0.9,
+                                  color: greenColor,
+                                ),
+                                SizedBox(width: size * 0.5),
+                                MediumText(
+                                  text:
+                                      tables[index].guests <= 2 ? "1-2" : "3-4",
+                                  size: font1,
+                                  color: greenColor,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     );

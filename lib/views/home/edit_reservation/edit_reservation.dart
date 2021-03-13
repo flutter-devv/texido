@@ -9,45 +9,37 @@ import '../reservation_info/reservation_buttons.dart';
 
 class EditReservation extends StatelessWidget {
   final TableInfo table;
-  final bool isFloor;
+  final int tableIndex;
+  final bool forDialog;
   EditReservation({
     this.table,
-    this.isFloor,
+    this.tableIndex,
+    this.forDialog = false,
   });
   final controller = Get.find<TableController>();
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Container(
-        alignment: Alignment.topCenter,
-        margin: EdgeInsets.only(top: size, right: size * 0.5),
-        child: Container(
-          color: isFloor ? Colors.transparent : blueGrey3,
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ReservationBar("Edit Reservation"),
-                ReservationBody(
-                  table: TableInfo(
-                    member: table.member,
-                    name: table.name,
-                    mobile: table.mobile,
-                    time: table.time,
-                    date: table.date,
-                    guests: table.guests,
-                    table: table.table,
-                    activated: table.activated,
-                    notes: table.notes,
-                  ),
-                ),
-                ReservationButtons(
-                  table: table,
-                  isFloor: isFloor,
-                ),
-              ],
-            ),
+    return Container(
+      alignment: Alignment.topCenter,
+      margin: EdgeInsets.only(top: size, right: size * 0.5),
+      child: Container(
+        color: forDialog ? Colors.transparent : blueGrey3,
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ReservationBar("Edit Reservation", forDialog: forDialog),
+              ReservationBody(
+                table: table,
+                tableIndex: tableIndex,
+              ),
+              ReservationButtons(
+                buttonLabel: "Save",
+                forDialog: forDialog,
+                tableIndex: tableIndex,
+              ),
+            ],
           ),
         ),
       ),

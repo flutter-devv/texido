@@ -3,16 +3,18 @@ import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/models/table.dart';
 import 'bottom_buttons.dart';
-import 'build_item.dart';
-import 'item_logo.dart';
+import 'reservation_item.dart';
+import 'reservation_logo.dart';
 import 'title_bar.dart';
 
 class ReservationDetails extends StatelessWidget {
-  final TableInfo item;
+  final TableInfo table;
   final int index;
+  final bool forDialog;
   ReservationDetails({
-    this.item,
+    this.table,
     this.index,
+    this.forDialog = false,
   });
   final List<String> labels = [
     "Member",
@@ -27,14 +29,14 @@ class ReservationDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List values = [
-      item.member,
-      item.name,
-      "+966" + " " + item.mobile,
-      item.date.value,
-      item.time.value,
-      item.guests,
-      item.table,
-      item.notes[0],
+      table.member,
+      table.name,
+      table.mobile,
+      table.date.value,
+      table.time.value,
+      table.guests,
+      table.table,
+      table.notes[0],
     ];
     return Container(
       height: Get.height / 1.6,
@@ -48,12 +50,15 @@ class ReservationDetails extends StatelessWidget {
           Expanded(
             child: Stack(
               children: [
-                ItemLogo(),
+                ReservationLogo(
+                    guestsNumber: table.guests.value,
+                    tableNumber: table.table,
+                    tableActivated: table.activated),
                 ListView.builder(
                   itemCount: labels.length,
                   padding: EdgeInsets.symmetric(horizontal: size),
                   itemBuilder: (context, index) {
-                    return BuildItem(
+                    return ReservationItem(
                       label: labels[index],
                       value: values[index],
                     );
@@ -62,7 +67,11 @@ class ReservationDetails extends StatelessWidget {
               ],
             ),
           ),
-          BottomButtons(),
+          BottomButtons(
+            table: table,
+            tableIndex: index,
+            forDialog: forDialog,
+          ),
         ],
       ),
     );

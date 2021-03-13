@@ -50,7 +50,7 @@ const Color hintColor01 = Color(0xff8EAABE);
 const Color hintColor02 = Color(0xffA2A2A2);
 
 // app vairables
-double size = SizeConfig.defaultSize;
+double size = AppSizes.defaultSize;
 
 double font1 = size * 0.5;
 double font2 = size * 0.6;

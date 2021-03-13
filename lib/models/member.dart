@@ -6,7 +6,7 @@ class MemberInfo {
   final String membership;
   final String gender;
   final String email;
-  final String date;
+  final DateTime date;
   final String notes;
 
   MemberInfo({

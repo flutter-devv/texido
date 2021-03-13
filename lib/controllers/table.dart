@@ -4,21 +4,11 @@ import 'package:get/get.dart';
 import 'package:texido_app/models/table.dart';
 
 class TableController extends GetxController {
-  // tables objects
   RxList<TableInfo> tables = List<TableInfo>().obs;
-  // for the grid data
-  RxList<TableInfo> tables4AM = List<TableInfo>().obs;
-  RxList<TableInfo> tables5AM = List<TableInfo>().obs;
-  RxList<TableInfo> tables6AM = List<TableInfo>().obs;
-  // for the tabs
   RxList<bool> selected = [true, false, false].obs;
   RxString selectedUser = "Karem Doe".obs;
   Rx<TextEditingController> searchController = TextEditingController().obs;
   RxList<bool> colorList = List<bool>().obs;
-  // for grid searching
-  RxList<TableInfo> searched4AMGuests = List<TableInfo>().obs;
-  RxList<TableInfo> searched5AMGuests = List<TableInfo>().obs;
-  RxList<TableInfo> searched6AMGuests = List<TableInfo>().obs;
 
   RxBool cancelling = false.obs;
   RxBool newReservation = false.obs;
@@ -31,21 +21,22 @@ class TableController extends GetxController {
   Rx<DateTime> pickedDate = DateTime.now().obs;
   Rx<TimeOfDay> pickedTime = TimeOfDay.now().obs;
 
-  void getTablesData() {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController noteController = TextEditingController();
+
+  void getTablesData(BuildContext context) {
     tables.clear();
-    tables4AM.clear();
-    tables5AM.clear();
-    tables6AM.clear();
     String time;
     bool activated;
     int guests;
     for (int i = 0; i < 50; ++i) {
       if (i < 10)
-        time = "4:00 AM";
+        time = TimeOfDay(hour: 4, minute: 00).format(context);
       else if (i < 20)
-        time = "5:00 AM";
+        time = TimeOfDay(hour: 5, minute: 00).format(context);
       else
-        time = "6:00 AM";
+        time = TimeOfDay(hour: 6, minute: 00).format(context);
       if (i > 30)
         guests = 04;
       else
@@ -69,17 +60,10 @@ class TableController extends GetxController {
       );
     }
     colorList.assignAll(List.filled(tables.length, false));
-    for (int i = 0; i < 50; ++i) {
-      if (tables[i].time.value == "4:00 AM")
-        tables4AM.add(tables[i]);
-      else if (tables[i].time.value == "5:00 AM")
-        tables5AM.add(tables[i]);
-      else
-        tables6AM.add(tables[i]);
-    }
   }
 
-  Future<void> pickDate(BuildContext context, DateTime initialDate) async {
+  Future<void> pickDate(
+      BuildContext context, DateTime initialDate, int tableIndex) async {
     DateTime date = await showDatePicker(
       context: context,
       firstDate: DateTime(DateTime.now().year),
@@ -88,24 +72,17 @@ class TableController extends GetxController {
     );
     if (date != null) {
       pickedDate.value = date;
-      tables[index.value].date.value = pickedDate.value;
+      tables[tableIndex].date.value = pickedDate.value;
     }
   }
 
-  Future<void> pickTime(BuildContext context) async {
+  Future<void> pickTime(BuildContext context, int tableIndex) async {
     TimeOfDay t = await showTimePicker(
         context: context, initialTime: TimeOfDay(hour: 2, minute: 4));
     if (t != null) {
       pickedTime.value = t;
-      tables[index.value].time.value =
+      tables[tableIndex].time.value =
           pickedTime.value.format(context).toString();
     }
-  }
-
-  @override
-  void onInit() {
-    getTablesData();
-    colorList[0] = true;
-    super.onInit();
   }
 }

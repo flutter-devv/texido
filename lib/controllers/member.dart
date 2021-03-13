@@ -9,12 +9,14 @@ class MemberController extends GetxController {
   RxList<String> membership = ["Membership", "Gold", "Sliver", "Bronze"].obs;
   RxList<MemberInfo> members = List<MemberInfo>().obs;
   RxList<MemberInfo> searchedMembers = List<MemberInfo>().obs;
+  RxBool viewMember = false.obs;
+  RxBool addMember = false.obs;
+  RxBool addMemberButton = false.obs;
+  RxInt memberIndex = 0.obs;
   RxString genderSelected = "".obs;
   RxString membershipSelected = "".obs;
-  RxBool addMember = false.obs;
-  RxBool searchValidator = false.obs;
   RxString imagePath = "".obs;
-  Rx<DateTime> selectedDate = DateTime(0, 0, 0).obs;
+  Rx<DateTime> selectedDate = DateTime.now().obs;
   final picker = ImagePicker();
 
   // fields controllers
@@ -32,18 +34,18 @@ class MemberController extends GetxController {
           image: imagePath.value,
           firstName: faker.person.firstName(),
           lastName: faker.person.lastName(),
-          phone: "123456789",
+          phone: "+966" + ' ' + faker.randomGenerator.numbers(9, 9).join(""),
           membership: "Gold membership",
           gender: "male",
           email: faker.internet.email(),
-          date: faker.date.toString(),
-          notes: "your note",
+          date: DateTime.now(),
+          notes: faker.lorem.sentence(),
         ),
       );
     }
   }
 
-  Future<void> addMemberToList() {
+  void addMemberToList() {
     members.insert(
       0,
       MemberInfo(
@@ -54,12 +56,12 @@ class MemberController extends GetxController {
         membership: membershipSelected.value + " membership",
         gender: genderSelected.value,
         email: emailController.text,
-        date: selectedDate.value.toString(),
+        date: selectedDate.value,
         notes: noteController.text,
       ),
     );
     addMember.value = false;
-    selectedDate.value = DateTime(2030, 1, 1);
+    selectedDate.value = DateTime.now();
     imagePath.value = "";
   }
 
@@ -68,13 +70,18 @@ class MemberController extends GetxController {
     imagePath.value = pickedFile.path;
   }
 
-  void clearControllers() {
+  resetData() {
     firstNameController.clear();
     lastNameController.clear();
     phoneController.clear();
     emailController.clear();
     noteController.clear();
-    searchController.clear();
+    selectedDate.value = DateTime.now();
+    imagePath.value = "";
+    genderSelected.value = gender[0];
+    membershipSelected.value = membership[0];
+    addMember.value = false;
+    addMemberButton.value = false;
   }
 
   @override

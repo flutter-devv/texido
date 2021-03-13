@@ -22,7 +22,7 @@ class ScanningData extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  SvgPicture.asset(tableIcon),
+                  SvgPicture.asset(AppAssets.tableIcon),
                   SizedBox(width: size),
                   MediumText(
                     text: "Table $tableNumber",
@@ -33,7 +33,7 @@ class ScanningData extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset(people),
+                  SvgPicture.asset(AppAssets.people),
                   SizedBox(width: size * 0.5),
                   RegularText(
                     text: "$peopleNumber People",
@@ -51,7 +51,7 @@ class ScanningData extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  SvgPicture.asset(clock),
+                  SvgPicture.asset(AppAssets.clock),
                   SizedBox(width: size),
                   MediumText(
                     text: "When",

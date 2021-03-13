@@ -53,7 +53,7 @@ class DeactivatedItem extends StatelessWidget {
                   Row(
                     children: [
                       SvgPicture.asset(
-                        tap4,
+                        AppAssets.tap4,
                         height: size * 0.8,
                         color: darkGrey04,
                       ),

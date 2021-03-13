@@ -67,7 +67,8 @@ class QRBody extends StatelessWidget {
           color: greyColor04,
           borderRadius: BorderRadius.circular(5.0),
         ),
-        child: SvgPicture.asset(qr, color: blackColor.withOpacity(0.3)),
+        child:
+            SvgPicture.asset(AppAssets.qr, color: blackColor.withOpacity(0.3)),
       ),
     );
   }

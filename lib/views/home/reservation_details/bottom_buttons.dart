@@ -2,10 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/controllers/table.dart';
+import 'package:texido_app/models/table.dart';
+import 'package:texido_app/views/home/edit_reservation/edit_reservation.dart';
 import 'package:texido_app/widgets/custom_button.dart';
-import '../edit_reservation.dart';
 
 class BottomButtons extends StatelessWidget {
+  final TableInfo table;
+  final int tableIndex;
+  final bool forDialog;
+  BottomButtons({
+    this.table,
+    this.tableIndex,
+    this.forDialog = false,
+  });
   final controller = Get.find<TableController>();
   @override
   Widget build(BuildContext context) {
@@ -23,7 +32,7 @@ class BottomButtons extends StatelessWidget {
             buttonColor: transparentColor,
             labelSize: font2,
             onPressed: () {
-              controller.cancelling.value = true;
+              // controller.cancelling.value = true;
             },
           ),
           ButtonBar(
@@ -36,20 +45,26 @@ class BottomButtons extends StatelessWidget {
                 labelSize: font2,
                 onPressed: () {
                   Get.close(1);
-                  controller.index.value = index;
-                  Get.dialog(
-                    Material(
-                        color: transparentColor,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: size * 2),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              EditReservation(item, true),
-                            ],
-                          ),
-                        )),
-                  );
+                  if (forDialog)
+                    // controller.index.value = tableIndex;
+                    Get.dialog(
+                      Material(
+                          color: transparentColor,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: size * 2),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                EditReservation(
+                                    table: table,
+                                    tableIndex: tableIndex,
+                                    forDialog: forDialog),
+                              ],
+                            ),
+                          )),
+                    );
+                  else
+                    controller.edit.value = true;
                 },
                 hasBorder: true,
               ),

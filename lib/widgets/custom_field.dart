@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:texido_app/constants/app_constants.dart';
+import 'package:texido_app/constants/colors_constants.dart';
 
 class CustomField extends StatelessWidget {
   final String hint;
@@ -17,7 +18,7 @@ class CustomField extends StatelessWidget {
   final Function validate;
   final Function onChanged;
   final Function onSubmit;
-  final bool enabled;
+  final bool readOnly;
   final bool autoValidate;
   final bool errorText;
   CustomField({
@@ -35,7 +36,7 @@ class CustomField extends StatelessWidget {
     this.validate,
     this.onChanged,
     this.onSubmit,
-    this.enabled = false,
+    this.readOnly = false,
     this.autoValidate,
     this.errorText = false,
   });
@@ -45,9 +46,9 @@ class CustomField extends StatelessWidget {
     return TextFormField(
       controller: fieldController,
       obscureText: obscureText,
-      readOnly: enabled,
+      readOnly: readOnly,
       style: TextStyle(
-        color: hintColor,
+        color: AppColors.darkGrey03,
         fontSize: hintSize != null ? font2 : font5,
         fontFamily: "Poppins",
         fontWeight: FontWeight.w400,
@@ -58,19 +59,19 @@ class CustomField extends StatelessWidget {
             EdgeInsets.symmetric(vertical: vertical, horizontal: size),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: borderColor),
-          borderRadius: BorderRadius.circular(6.0),
+          borderRadius: BorderRadius.circular(3.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: borderColor),
-          borderRadius: BorderRadius.circular(6.0),
+          borderRadius: BorderRadius.circular(3.0),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: redColor),
-          borderRadius: BorderRadius.circular(6.0),
+          borderSide: BorderSide(color: redColor.withOpacity(0.4)),
+          borderRadius: BorderRadius.circular(3.0),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: redColor),
-          borderRadius: BorderRadius.circular(6.0),
+          borderRadius: BorderRadius.circular(3.0),
         ),
         filled: filled ? true : false,
         fillColor: filledColor == whiteColor ? filledColor : filledColor,

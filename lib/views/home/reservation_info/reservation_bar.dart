@@ -6,8 +6,8 @@ import 'package:texido_app/widgets/custom_text.dart';
 
 class ReservationBar extends StatelessWidget {
   final String title;
-  final bool isFloor;
-  ReservationBar(this.title, {this.isFloor = false});
+  final bool forDialog;
+  ReservationBar(this.title, {this.forDialog = false});
   final controller = Get.find<TableController>();
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class ReservationBar extends StatelessWidget {
                 color: Color(0xffFF4C4D),
               ),
               onTap: () {
-                if (isFloor)
+                if (forDialog)
                   Get.close(1);
                 else
                   controller.edit.value = false;

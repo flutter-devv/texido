@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
+import 'package:texido_app/controllers/grid.dart';
 import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 import 'search_bar.dart';
 import 'grid_list.dart';
 
 class GridScreen extends StatelessWidget {
-  final controller = Get.find<TableController>();
+  final tableController = Get.find<TableController>();
+  final gridController = Get.put(GridController());
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -30,9 +32,9 @@ class GridScreen extends StatelessWidget {
                         ),
                         SizedBox(height: size * 0.5),
                         Expanded(
-                          child: controller.searched4AMGuests.isEmpty
-                              ? GridList(controller.tables4AM)
-                              : GridList(controller.searched4AMGuests),
+                          child: gridController.searched4AMGuests.isEmpty
+                              ? GridList(gridController.tables4AM)
+                              : GridList(gridController.searched4AMGuests),
                         ),
                       ],
                     ),
@@ -49,9 +51,9 @@ class GridScreen extends StatelessWidget {
                         ),
                         SizedBox(height: size * 0.5),
                         Expanded(
-                          child: controller.searched5AMGuests.isEmpty
-                              ? GridList(controller.tables5AM)
-                              : GridList(controller.searched5AMGuests),
+                          child: gridController.searched5AMGuests.isEmpty
+                              ? GridList(gridController.tables5AM)
+                              : GridList(gridController.searched5AMGuests),
                         ),
                       ],
                     ),
@@ -68,9 +70,9 @@ class GridScreen extends StatelessWidget {
                         ),
                         SizedBox(height: size * 0.5),
                         Expanded(
-                          child: controller.searched6AMGuests.isEmpty
-                              ? GridList(controller.tables6AM)
-                              : GridList(controller.searched6AMGuests),
+                          child: gridController.searched6AMGuests.isEmpty
+                              ? GridList(gridController.tables6AM)
+                              : GridList(gridController.searched6AMGuests),
                         ),
                       ],
                     ),

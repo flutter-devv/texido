@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:texido_app/constants/app_constants.dart';
+import 'package:texido_app/constants/asset_constants.dart';
 
 class GateLogo extends StatelessWidget {
   @override
@@ -14,7 +15,7 @@ class GateLogo extends StatelessWidget {
               topLeft: Radius.circular(10.0),
               bottomLeft: Radius.circular(10.0),
             )),
-        child: SvgPicture.asset(gate),
+        child: SvgPicture.asset(AppAssets.gate),
       ),
     );
   }

@@ -21,7 +21,7 @@ class MemberList extends StatelessWidget {
           itemCount: items.length,
           padding: EdgeInsets.only(left: size, right: size * 1.5),
           itemBuilder: (context, index) {
-            return MemberItem(items[index]);
+            return MemberItem(items[index], index);
           },
         ),
       ),

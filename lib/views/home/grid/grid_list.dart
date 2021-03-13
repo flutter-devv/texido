@@ -13,7 +13,7 @@ class GridList extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         if (items[index].activated == true)
-          return ActivatedItem(items[index]);
+          return ActivatedItem(items[index], index);
         else
           return DeactivatedItem(items[index]);
       },

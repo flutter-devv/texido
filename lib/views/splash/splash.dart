@@ -9,7 +9,7 @@ class Splash extends StatelessWidget {
   final controller = Get.put(SplashController());
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    AppSizes().init(context);
     return Scaffold(
       backgroundColor: whiteColor,
       body: Center(

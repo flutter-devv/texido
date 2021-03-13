@@ -11,7 +11,7 @@ class AppLogo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SvgPicture.asset(
-          splash,
+          AppAssets.splash,
           height: size * 11,
         ),
         SizedBox(height: size),

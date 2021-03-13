@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
+import 'package:texido_app/constants/asset_constants.dart';
 import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/views/home/grid/grid.dart';
-import 'custom_app_bar.dart';
+import 'home_bar.dart';
 import 'tap_item.dart';
 import 'floor/floor.dart';
 import 'list/list.dart';
@@ -13,11 +14,14 @@ class HomeScreen extends StatelessWidget {
   final controller = Get.put(TableController());
   @override
   Widget build(BuildContext context) {
+    controller.getTablesData(context);
+    controller.colorList[0] = true;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          CustomAppBar(),
+          HomeBar(),
+          Divider(height: 0.0),
           Expanded(
             child: Row(
               children: [
@@ -31,17 +35,17 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           TapItem(
                             label: "Floor",
-                            icon: tap1,
+                            icon: AppAssets.tap1,
                             index: 0,
                           ),
                           TapItem(
                             label: "Res.",
-                            icon: tap2,
+                            icon: AppAssets.tap2,
                             index: 1,
                           ),
                           TapItem(
                             label: "Grid",
-                            icon: tap3,
+                            icon: AppAssets.tap3,
                             index: 2,
                           ),
                         ],
@@ -50,12 +54,12 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           TapItem(
                             label: "Members",
-                            icon: tap4,
+                            icon: AppAssets.tap4,
                             index: 3,
                           ),
                           TapItem(
                             label: "Reports",
-                            icon: tap6,
+                            icon: AppAssets.tap6,
                             index: 5,
                           ),
                         ],

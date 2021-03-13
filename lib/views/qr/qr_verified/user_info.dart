@@ -43,7 +43,7 @@ class UserInfo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(
-            prize,
+            AppAssets.prize,
             color: whiteColor,
             height: size,
           ),

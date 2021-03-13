@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
+import 'package:texido_app/constants/asset_constants.dart';
 import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/models/table.dart';
 import 'package:texido_app/widgets/custom_text.dart';
@@ -23,7 +24,7 @@ class ListItem extends StatelessWidget {
         },
         child: Container(
           height: size * 5.5,
-          color: controller.colorList[index] ? blueGrey5 : Colors.transparent,
+          color: controller.colorList[index] ? blueGrey5 : transparentColor,
           padding: EdgeInsets.symmetric(horizontal: size, vertical: size),
           child: Row(
             children: [
@@ -94,7 +95,7 @@ class ListItem extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             SvgPicture.asset(
-                              tap4,
+                              AppAssets.tap4,
                               height: size * 0.8,
                               color: blackColor05,
                             ),
