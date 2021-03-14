@@ -11,7 +11,6 @@ import 'history_item.dart';
 class History extends StatelessWidget {
   final TableInfo table;
   History(this.table);
-  final TextEditingController noteController = TextEditingController();
   final controller = Get.find<TableController>();
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class History extends StatelessWidget {
           SizedBox(height: size),
           Expanded(
             child: ListView.builder(
-              itemCount: table.notes.length,
+              itemCount: 1,
               itemBuilder: (context, index) {
                 return Note(
                   userName: table.name,
@@ -51,7 +50,7 @@ class History extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size),
             child: CustomField(
-              fieldController: noteController,
+              fieldController: controller.historyController,
               hint: "Add notes goes here",
               vertical: size * 1.5,
               autoValidate: false,
@@ -68,8 +67,8 @@ class History extends StatelessWidget {
               borderColor: greenColor,
               labelSize: font2,
               onPressed: () {
-                table.notes.add(noteController.text);
-                controller.edit.value = false;
+                table.notes = controller.historyController.text;
+                controller.historyController.clear();
               },
               hasBorder: true,
               height: size * 2,

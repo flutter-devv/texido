@@ -59,7 +59,7 @@ class DeactivatedItem extends StatelessWidget {
                       ),
                       SizedBox(width: size * 0.5),
                       MediumText(
-                        text: table.guests.value <= 2 ? "1-2" : "3-4",
+                        text: table.guests <= 2 ? "1-2" : "3-4",
                         size: font1,
                         color: darkGrey04,
                       ),

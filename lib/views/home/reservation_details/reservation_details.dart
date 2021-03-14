@@ -32,8 +32,8 @@ class ReservationDetails extends StatelessWidget {
       table.member,
       table.name,
       table.mobile,
-      table.date.value,
-      table.time.value,
+      table.date,
+      table.time,
       table.guests,
       table.table,
       table.notes[0],
@@ -41,19 +41,19 @@ class ReservationDetails extends StatelessWidget {
     return Container(
       height: Get.height / 1.6,
       color: whiteColor,
-      width: Get.width / 2,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
-          TitleBar(),
+          TitleBar(forDialog),
           Expanded(
             child: Stack(
               children: [
                 ReservationLogo(
-                    guestsNumber: table.guests.value,
-                    tableNumber: table.table,
-                    tableActivated: table.activated),
+                  guestsNumber: table.guests,
+                  tableNumber: table.table,
+                  tableActivated: table.activated,
+                ),
                 ListView.builder(
                   itemCount: labels.length,
                   padding: EdgeInsets.symmetric(horizontal: size),

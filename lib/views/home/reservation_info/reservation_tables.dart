@@ -4,22 +4,25 @@ import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/constants/asset_constants.dart';
 import 'package:texido_app/controllers/table.dart';
+import 'package:texido_app/models/table.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 
 class ReservationTables extends StatelessWidget {
+  final List<TableInfo> tables;
+  ReservationTables(this.tables);
   final controller = Get.find<TableController>();
   @override
   Widget build(BuildContext context) {
+    Color color;
     return Container(
       color: Color(0xffF4F4F5).withOpacity(0.4),
       padding: EdgeInsets.only(top: size, left: size * 0.5),
       child: ListView.builder(
-        itemCount: 10,
+        itemCount: tables.length,
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: size * 0.5),
         itemBuilder: (context, index) {
-          Color color;
-          if (controller.tables[index].activated)
+          if (tables[index].activated)
             color = greenColor;
           else
             color = darkGrey03;
@@ -36,16 +39,14 @@ class ReservationTables extends StatelessWidget {
                     borderRadius: BorderRadius.circular(3.0),
                   ),
                   child: SemiBoldText(
-                    text: "TA-${controller.tables[index].table}",
+                    text: "TA-${tables[index].table}",
                     size: font1,
                     color: color,
                   ),
                 ),
                 SizedBox(width: size * 0.5),
                 MediumText(
-                  text: controller.tables[index].activated
-                      ? "Available"
-                      : "Reserved",
+                  text: tables[index].activated ? "Available" : "Reserved",
                   size: font1,
                   color: color,
                 ),
@@ -59,8 +60,7 @@ class ReservationTables extends StatelessWidget {
                     ),
                     SizedBox(width: size * 0.5),
                     MediumText(
-                      text:
-                          controller.tables[index].guests <= 2 ? "1-2" : "3-4",
+                      text: tables[index].guests <= 2 ? "1-2" : "3-4",
                       size: font1,
                       color: color,
                     ),

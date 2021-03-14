@@ -17,9 +17,9 @@ class GridController extends GetxController {
   void getGridData() {
     clearGridData();
     for (int i = 0; i < tableController.tables.length; ++i) {
-      if (tableController.tables[i].time.value == "4:00 AM")
+      if (tableController.tables[i].time == "4:00 AM")
         tables4AM.add(tableController.tables[i]);
-      else if (tableController.tables[i].time.value == "5:00 AM")
+      else if (tableController.tables[i].time == "5:00 AM")
         tables5AM.add(tableController.tables[i]);
       else
         tables6AM.add(tableController.tables[i]);

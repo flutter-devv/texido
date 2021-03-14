@@ -24,11 +24,11 @@ class SearchBar extends StatelessWidget {
               errorText: true,
               filledColor: whiteColor,
               prefix: Icon(Icons.search, size: size * 1.5),
-              fieldController: controller.listSearchController.value,
+              fieldController: controller.listSearchController,
               onChanged: (newValue) {
                 controller.searchedList.clear();
                 if (newValue == "")
-                  controller.searchedList.value.clear();
+                  controller.searchedList.clear();
                 else {
                   controller.tables.forEach((e) {
                     if (e.name.toLowerCase().contains(newValue.toLowerCase()))

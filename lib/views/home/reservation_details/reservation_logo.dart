@@ -12,7 +12,7 @@ class ReservationLogo extends StatelessWidget {
   ReservationLogo({
     this.guestsNumber,
     this.tableNumber,
-    this.tableActivated,
+    this.tableActivated = false,
   });
   @override
   Widget build(BuildContext context) {

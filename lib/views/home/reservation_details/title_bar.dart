@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
+import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 
 class TitleBar extends StatelessWidget {
+  final bool forDialog;
+  TitleBar(this.forDialog);
+  final controller = Get.find<TableController>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +25,13 @@ class TitleBar extends StatelessWidget {
               Icons.close,
               color: Color(0xffFF4C4D),
             ),
-            onPressed: () => Get.close(1),
+            onPressed: () {
+              if (forDialog)
+                Get.close(1);
+              else {
+                controller.closeDetails.value = true;
+              }
+            },
           )
         ],
       ),

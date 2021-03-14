@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/asset_constants.dart';
-import 'package:texido_app/controllers/table.dart';
+import 'package:texido_app/controllers/reservation.dart';
 import 'package:texido_app/models/table.dart';
 import 'package:texido_app/widgets/custom_field.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 import 'reservation_item.dart';
 import 'package:texido_app/constants/app_constants.dart';
+import 'reservation_tables.dart';
 
 class ReservationBody extends StatelessWidget {
   final TableInfo table;
+  final List<TableInfo> tables;
   final int tableIndex;
   ReservationBody({
     this.table,
+    this.tables,
     this.tableIndex,
   });
   final List<String> labels = [
@@ -40,14 +43,15 @@ class ReservationBody extends StatelessWidget {
     "Nov",
     "Dec"
   ];
-  final controller = Get.find<TableController>();
+  final controller = Get.find<ReservationController>();
   @override
   Widget build(BuildContext context) {
-    controller.nameController = TextEditingController(text: table.name);
-    controller.mobileController =
-        TextEditingController(text: "${table.mobile}");
-    controller.noteController = TextEditingController(text: table.notes[0]);
-    List<TableInfo> tables = controller.tables;
+    controller.insertData(table);
+    controller.insertFieldsData(
+      name: table.name,
+      mobile: table.mobile,
+      note: table.notes,
+    );
     return Container(
       height: Get.height / 1.5,
       color: whiteColor,
@@ -101,11 +105,7 @@ class ReservationBody extends StatelessWidget {
                     label: labels[3],
                     child: GestureDetector(
                       onTap: () async {
-                        await controller.pickDate(
-                          context,
-                          table.date.value,
-                          tableIndex,
-                        );
+                        await controller.pickDate(context, table.date);
                       },
                       child: Container(
                         height: size * 2.3,
@@ -120,10 +120,9 @@ class ReservationBody extends StatelessWidget {
                           children: [
                             Obx(
                               () => RegularText(
-                                text:
-                                    "${controller.tables[tableIndex].date.value.day}"
-                                    " ${months[controller.tables[tableIndex].date.value.month]} "
-                                    "${controller.tables[tableIndex].date.value.year}",
+                                text: "${controller.date.value.day}"
+                                    " ${months[controller.date.value.month]} "
+                                    "${controller.date.value.year}",
                                 color: greyColor06,
                                 size: font1,
                               ),
@@ -139,7 +138,7 @@ class ReservationBody extends StatelessWidget {
                     label: labels[4],
                     child: GestureDetector(
                       onTap: () async {
-                        await controller.pickTime(context, tableIndex);
+                        await controller.pickTime(context);
                       },
                       child: Container(
                         height: size * 2.3,
@@ -154,7 +153,7 @@ class ReservationBody extends StatelessWidget {
                           children: [
                             Obx(
                               () => RegularText(
-                                text: controller.tables[tableIndex].time.value,
+                                text: controller.time.value,
                                 color: greyColor06,
                                 size: font1,
                               ),
@@ -181,7 +180,7 @@ class ReservationBody extends StatelessWidget {
                         children: [
                           Obx(
                             () => RegularText(
-                              text: table.guests.toString(),
+                              text: controller.guests.value.toString(),
                               color: greyColor06,
                               size: font1,
                             ),
@@ -192,9 +191,8 @@ class ReservationBody extends StatelessWidget {
                                 child: SvgPicture.asset(AppAssets.minus,
                                     height: size * 1.1, color: greyColor06),
                                 onTap: () {
-                                  if (table.guests > 1)
-                                    controller
-                                        .tables[tableIndex].guests.value--;
+                                  if (controller.guests.value > 1)
+                                    controller.guests.value--;
                                 },
                               ),
                               SizedBox(width: size * 0.5),
@@ -202,8 +200,7 @@ class ReservationBody extends StatelessWidget {
                                   child: SvgPicture.asset(AppAssets.plus,
                                       height: size * 1.1, color: greyColor06),
                                   onTap: () {
-                                    controller
-                                        .tables[tableIndex].guests.value++;
+                                    controller.guests.value++;
                                   }),
                             ],
                           ),
@@ -241,63 +238,7 @@ class ReservationBody extends StatelessWidget {
             SizedBox(width: size),
             Expanded(
               flex: 2,
-              child: Container(
-                color: Color(0xffF4F4F5).withOpacity(0.4),
-                padding: EdgeInsets.only(top: size, left: size * 0.5),
-                child: ListView.builder(
-                  itemCount: tables.length,
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: size * 0.5),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: size),
-                      child: Container(
-                        child: Row(
-                          children: [
-                            Container(
-                              height: size * 1.8,
-                              width: size * 3.5,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: greenColor.withOpacity(0.3),
-                                borderRadius: BorderRadius.circular(3.0),
-                              ),
-                              child: SemiBoldText(
-                                text: "TA-${tables[index].table}",
-                                size: font1,
-                                color: greenColor,
-                              ),
-                            ),
-                            SizedBox(width: size * 0.5),
-                            MediumText(
-                              text: "Available",
-                              size: font1,
-                              color: greenColor,
-                            ),
-                            Spacer(),
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                  AppAssets.tap4,
-                                  height: size * 0.9,
-                                  color: greenColor,
-                                ),
-                                SizedBox(width: size * 0.5),
-                                MediumText(
-                                  text:
-                                      tables[index].guests <= 2 ? "1-2" : "3-4",
-                                  size: font1,
-                                  color: greenColor,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              child: ReservationTables(tables),
             ),
           ],
         ),

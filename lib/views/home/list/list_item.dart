@@ -21,6 +21,7 @@ class ListItem extends StatelessWidget {
               .assignAll(List.filled(controller.colorList.length, false));
           controller.colorList[index] = true;
           controller.index.value = index;
+          controller.closeDetails.value = false;
         },
         child: Container(
           height: size * 5.5,

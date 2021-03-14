@@ -32,6 +32,7 @@ class EditReservation extends StatelessWidget {
               ReservationBar("Edit Reservation", forDialog: forDialog),
               ReservationBody(
                 table: table,
+                tables: controller.tables,
                 tableIndex: tableIndex,
               ),
               ReservationButtons(

@@ -44,9 +44,8 @@ class BottomButtons extends StatelessWidget {
                 borderColor: greyColor07,
                 labelSize: font2,
                 onPressed: () {
-                  Get.close(1);
-                  if (forDialog)
-                    // controller.index.value = tableIndex;
+                  if (forDialog) {
+                    Get.close(1);
                     Get.dialog(
                       Material(
                           color: transparentColor,
@@ -56,14 +55,15 @@ class BottomButtons extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 EditReservation(
-                                    table: table,
-                                    tableIndex: tableIndex,
-                                    forDialog: forDialog),
+                                  table: table,
+                                  tableIndex: tableIndex,
+                                  forDialog: forDialog,
+                                ),
                               ],
                             ),
                           )),
                     );
-                  else
+                  } else
                     controller.edit.value = true;
                 },
                 hasBorder: true,

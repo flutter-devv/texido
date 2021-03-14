@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/constants/asset_constants.dart';
+import 'package:texido_app/controllers/grid.dart';
+import 'package:texido_app/controllers/reservation.dart';
 import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/views/home/grid/grid.dart';
 import 'home_bar.dart';
@@ -11,11 +13,12 @@ import 'list/list.dart';
 import 'member/member.dart';
 
 class HomeScreen extends StatelessWidget {
-  final controller = Get.put(TableController());
+  final tableController = Get.put(TableController());
+  final reservationController = Get.put(ReservationController());
   @override
   Widget build(BuildContext context) {
-    controller.getTablesData(context);
-    controller.colorList[0] = true;
+    tableController.getTablesData(context);
+    tableController.colorList[0] = true;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -73,13 +76,13 @@ class HomeScreen extends StatelessWidget {
                       VerticalDivider(width: 0.0),
                       Expanded(
                           child: Obx(
-                        () => controller.category[1] == true
+                        () => tableController.category[1] == true
                             ? ListScreen()
-                            : controller.category[2] == true
+                            : tableController.category[2] == true
                                 ? GridScreen()
-                                : controller.category[3] == true
+                                : tableController.category[3] == true
                                     ? Member()
-                                    : controller.category[0] == true
+                                    : tableController.category[0] == true
                                         ? FloorScreen()
                                         : Center(
                                             child: Text("Under Development")),

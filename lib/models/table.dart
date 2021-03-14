@@ -1,15 +1,13 @@
-import 'package:get/get.dart';
-
 class TableInfo {
-  final String member;
-  final String name;
-  final String mobile;
-  Rx<DateTime> date;
-  RxString time;
-  RxInt guests;
-  final int table;
-  final List<String> notes;
-  final bool activated;
+  String member;
+  String name;
+  String mobile;
+  DateTime date;
+  String time;
+  int guests;
+  int table;
+  String notes;
+  bool activated;
 
   TableInfo({
     this.member,

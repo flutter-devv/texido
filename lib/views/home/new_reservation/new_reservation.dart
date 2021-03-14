@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/models/table.dart';
-import 'package:texido_app/views/home/reservation_info/reservation_bar.dart';
-import 'package:texido_app/views/home/reservation_info/reservation_body.dart';
-import 'package:texido_app/views/home/reservation_info/reservation_buttons.dart';
+import '../reservation_info/reservation_bar.dart';
+import '../reservation_info/reservation_body.dart';
+import '../reservation_info/reservation_buttons.dart';
 
 class NewReservation extends StatelessWidget {
   final controller = Get.find<TableController>();
@@ -28,17 +28,19 @@ class NewReservation extends StatelessWidget {
                     member: "",
                     name: "",
                     mobile: "",
-                    time: "".obs,
-                    date: DateTime(0, 0).obs,
-                    guests: 00.obs,
+                    time: "",
+                    date: DateTime.now(),
+                    guests: 00,
                     table: 0,
                     activated: true,
-                    notes: [""],
+                    notes: "",
                   ),
+                  tables: controller.activatedTables,
+                  tableIndex: controller.activatedTables[0].table,
                 ),
                 ReservationButtons(
-                  table: controller.tables[0],
                   buttonLabel: "Reserve",
+                  tableIndex: controller.activatedTables[0].table,
                 ),
               ],
             ),

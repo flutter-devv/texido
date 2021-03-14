@@ -34,8 +34,10 @@ class ReservationBar extends StatelessWidget {
               onTap: () {
                 if (forDialog)
                   Get.close(1);
-                else
+                else {
                   controller.edit.value = false;
+                  controller.newReservation.value = false;
+                }
               }),
         ],
       ),

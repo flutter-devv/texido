@@ -43,9 +43,9 @@ class SearchBar extends StatelessWidget {
                         if (e.name
                             .toLowerCase()
                             .contains(newValue.toLowerCase())) {
-                          if (e.time.value == "4:00 AM")
+                          if (e.time == "4:00 AM")
                             gridController.searched4AMGuests.add(e);
-                          else if (e.time.value == "5:00 AM")
+                          else if (e.time == "5:00 AM")
                             gridController.searched5AMGuests.add(e);
                           else
                             gridController.searched6AMGuests.add(e);

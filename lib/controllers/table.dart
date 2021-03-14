@@ -5,28 +5,25 @@ import 'package:texido_app/models/table.dart';
 
 class TableController extends GetxController {
   RxList<TableInfo> tables = List<TableInfo>().obs;
+  RxList<TableInfo> activatedTables = List<TableInfo>().obs;
   RxList<bool> selected = [true, false, false].obs;
   RxString selectedUser = "Karem Doe".obs;
-  Rx<TextEditingController> searchController = TextEditingController().obs;
   RxList<bool> colorList = List<bool>().obs;
-
   RxBool cancelling = false.obs;
   RxBool newReservation = false.obs;
   RxList<bool> category = [false, true, false, false, false, false].obs;
 
-  Rx<TextEditingController> listSearchController = TextEditingController().obs;
+  TextEditingController searchController = TextEditingController();
+  TextEditingController listSearchController = TextEditingController();
+  TextEditingController historyController = TextEditingController();
   RxList<TableInfo> searchedList = List<TableInfo>().obs;
   RxBool edit = false.obs;
+  RxBool closeDetails = false.obs;
   RxInt index = 0.obs;
-  Rx<DateTime> pickedDate = DateTime.now().obs;
-  Rx<TimeOfDay> pickedTime = TimeOfDay.now().obs;
-
-  TextEditingController nameController = TextEditingController();
-  TextEditingController mobileController = TextEditingController();
-  TextEditingController noteController = TextEditingController();
 
   void getTablesData(BuildContext context) {
     tables.clear();
+    activatedTables.clear();
     String time;
     bool activated;
     int guests;
@@ -50,39 +47,18 @@ class TableController extends GetxController {
           member: "Golden membership",
           name: faker.person.firstName() + ' ' + faker.person.lastName(),
           mobile: "+966" + ' ' + faker.randomGenerator.numbers(9, 9).join(""),
-          date: DateTime.now().obs,
-          time: time.obs,
-          guests: guests.obs,
+          date: DateTime.now(),
+          time: time,
+          guests: guests,
           table: i,
-          notes: faker.lorem.sentences(2),
+          notes: "Happy Birthday",
           activated: activated,
         ),
       );
+      for (var table in tables) {
+        if (table.activated) activatedTables.add(table);
+      }
     }
     colorList.assignAll(List.filled(tables.length, false));
-  }
-
-  Future<void> pickDate(
-      BuildContext context, DateTime initialDate, int tableIndex) async {
-    DateTime date = await showDatePicker(
-      context: context,
-      firstDate: DateTime(DateTime.now().year),
-      lastDate: DateTime(DateTime.now().year + 5),
-      initialDate: initialDate,
-    );
-    if (date != null) {
-      pickedDate.value = date;
-      tables[tableIndex].date.value = pickedDate.value;
-    }
-  }
-
-  Future<void> pickTime(BuildContext context, int tableIndex) async {
-    TimeOfDay t = await showTimePicker(
-        context: context, initialTime: TimeOfDay(hour: 2, minute: 4));
-    if (t != null) {
-      pickedTime.value = t;
-      tables[tableIndex].time.value =
-          pickedTime.value.format(context).toString();
-    }
   }
 }

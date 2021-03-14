@@ -34,8 +34,8 @@ class FloorItem extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             SvgPicture.asset(
-              item.guests.value > 2 ? AppAssets.doubleTable : AppAssets.table,
-              height: item.guests.value > 2 ? size * 4 : size * 2.5,
+              item.guests > 2 ? AppAssets.doubleTable : AppAssets.table,
+              height: item.guests > 2 ? size * 4 : size * 2.5,
             ),
             RegularText(
               text: index.toString(),

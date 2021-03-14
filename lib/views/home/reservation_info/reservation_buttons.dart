@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
+import 'package:texido_app/controllers/reservation.dart';
 import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/models/table.dart';
 import 'package:texido_app/widgets/custom_button.dart';
@@ -16,10 +17,10 @@ class ReservationButtons extends StatelessWidget {
     this.tableIndex,
     this.forDialog = false,
   });
-  final controller = Get.find<TableController>();
+  final controller1 = Get.find<TableController>();
+  final controller2 = Get.find<ReservationController>();
   @override
   Widget build(BuildContext context) {
-    // print("tableee: ${table.guests}");
     return Container(
       height: size * 3.2,
       decoration: BoxDecoration(color: Color(0xffF4F4F5)),
@@ -34,8 +35,10 @@ class ReservationButtons extends StatelessWidget {
             onPressed: () {
               if (forDialog)
                 Get.close(1);
-              else
-                controller.edit.value = false;
+              else {
+                controller1.edit.value = false;
+                controller1.newReservation.value = false;
+              }
             },
             hasBorder: true,
           ),
@@ -46,30 +49,13 @@ class ReservationButtons extends StatelessWidget {
               buttonColor: greenColor,
               labelSize: font2,
               onPressed: () {
-                controller.tables[tableIndex] = TableInfo(
-                  member: controller.tables[tableIndex].member,
-                  name: controller.nameController.text,
-                  mobile: controller.mobileController.text,
-                  date: controller.tables[tableIndex].date,
-                  time: controller.tables[tableIndex].time,
-                  guests: controller.tables[tableIndex].guests,
-                  notes: [controller.noteController.text],
-                );
-                // controller.tables[tableIndex] = TableInfo(
-                //   member: "Golden membership",
-                //   name: table.name,
-                //   mobile: table.mobile.substring(4),
-                //   date: table.date,
-                //   time: table.time,
-                //   guests: table.guests,
-                //   table: table.table,
-                //   notes: ["Birthday party"],
-                //   activated: table.activated,
-                // );
+                controller2.updateReservation(tableIndex);
                 if (forDialog)
                   Get.close(1);
-                else
-                  controller.edit.value = false;
+                else {
+                  controller1.edit.value = false;
+                  controller1.newReservation.value = false;
+                }
               }),
         ],
       ),

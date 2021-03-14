@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/controllers/table.dart';
-import 'package:texido_app/views/home/edit_reservation/edit_reservation.dart';
-import 'package:texido_app/views/home/reservation_details/reservation_details.dart';
+import '../edit_reservation/edit_reservation.dart';
+import '../reservation_details/reservation_details.dart';
+import 'history/history.dart';
 import 'list_item.dart';
 import '../new_reservation/new_reservation.dart';
 import 'search_bar.dart';
@@ -52,20 +53,38 @@ class ListScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: size),
-                  Expanded(
-                    flex: 4,
-                    child: controller.edit.value
-                        ? EditReservation(
-                            table: controller.tables[controller.index.value],
-                            forDialog: false,
-                          )
-                        : controller.newReservation.value
-                            ? NewReservation()
-                            : ReservationDetails(
-                                table:
-                                    controller.tables[controller.index.value],
-                                index: controller.index.value,
-                              ),
+                  Obx(
+                    () => Expanded(
+                      flex: 4,
+                      child: controller.edit.value
+                          ? EditReservation(
+                              table: controller.tables[controller.index.value],
+                              tableIndex: controller.index.value,
+                            )
+                          : controller.newReservation.value
+                              ? NewReservation()
+                              : controller.closeDetails.value
+                                  ? Container()
+                                  : SingleChildScrollView(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(right: size),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            ReservationDetails(
+                                              table: controller.tables[
+                                                  controller.index.value],
+                                              index: controller.index.value,
+                                            ),
+                                            SizedBox(height: size),
+                                            History(controller.tables[
+                                                controller.index.value]),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                    ),
                   ),
                 ],
               ),
