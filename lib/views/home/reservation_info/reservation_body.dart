@@ -8,6 +8,7 @@ import 'package:texido_app/widgets/custom_field.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 import 'reservation_item.dart';
 import 'package:texido_app/constants/app_constants.dart';
+import 'package:texido_app/config/months.dart';
 import 'reservation_tables.dart';
 
 class ReservationBody extends StatelessWidget {
@@ -29,29 +30,17 @@ class ReservationBody extends StatelessWidget {
     "Table",
     "Notes"
   ];
-  final List<String> months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sept",
-    "Oct",
-    "Nov",
-    "Dec"
-  ];
   final controller = Get.find<ReservationController>();
   @override
   Widget build(BuildContext context) {
-    controller.insertData(table);
-    controller.insertFieldsData(
-      name: table.name,
-      mobile: table.mobile,
-      note: table.notes,
-    );
+    if (!controller.didCall.value) {
+      controller.insertData(table);
+      controller.insertFieldsData(
+        name: table.name,
+        mobile: table.mobile,
+        note: table.notes,
+      );
+    }
     return Container(
       height: Get.height / 1.5,
       color: whiteColor,

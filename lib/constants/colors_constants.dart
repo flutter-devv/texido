@@ -31,4 +31,5 @@ class AppColors {
   static const Color greyColor07 = Color(0xff707070);
   static const Color hintColor01 = Color(0xff8EAABE);
   static const Color hintColor02 = Color(0xffA2A2A2);
+  static const Color blackColor = Color(0xff000000);
 }

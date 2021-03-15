@@ -60,72 +60,90 @@ class ListItem extends StatelessWidget {
               ),
               SizedBox(width: size),
               Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          MediumText(
-                            text: item.name,
-                            color: blackColor05,
+                child: item.name.isEmpty
+                    ? Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: size * 1.6,
+                          width: size * 4.5,
+                          child: SemiBoldText(
+                            text: "TA-${item.table}",
                             size: font1,
+                            color: blackColor06,
                           ),
-                          SizedBox(height: size * 0.6),
-                          MediumText(
-                            text: "+966 ${item.mobile}",
-                            color: blackColor05,
-                            size: font1,
+                          decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.circular(3.0),
+                          ),
+                        ),
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                MediumText(
+                                  text: item.name,
+                                  color: blackColor05,
+                                  size: font1,
+                                ),
+                                SizedBox(height: size * 0.6),
+                                MediumText(
+                                  text: item.mobile,
+                                  color: blackColor05,
+                                  size: font1,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              MediumText(
+                                text: item.member,
+                                color: blackColor05,
+                                size: font1,
+                              ),
+                              SizedBox(height: size * 0.6),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  SvgPicture.asset(
+                                    AppAssets.tap4,
+                                    height: size * 0.8,
+                                    color: blackColor05,
+                                  ),
+                                  SizedBox(width: size * 0.5),
+                                  MediumText(
+                                    text: item.guests <= 02 ? "3-4" : "1-2",
+                                    color: blackColor05,
+                                    size: font1,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            height: size * 1.6,
+                            width: size * 4.5,
+                            child: SemiBoldText(
+                              text: "TA-${item.table}",
+                              size: font1,
+                              color: blackColor06,
+                            ),
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(3.0),
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        MediumText(
-                          text: item.member,
-                          color: blackColor05,
-                          size: font1,
-                        ),
-                        SizedBox(height: size * 0.6),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            SvgPicture.asset(
-                              AppAssets.tap4,
-                              height: size * 0.8,
-                              color: blackColor05,
-                            ),
-                            SizedBox(width: size * 0.5),
-                            MediumText(
-                              text: item.guests <= 02 ? "3-4" : "1-2",
-                              color: blackColor05,
-                              size: font1,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      height: size * 1.6,
-                      width: size * 4.5,
-                      child: SemiBoldText(
-                        text: "TA-${item.table}",
-                        size: font1,
-                        color: blackColor06,
-                      ),
-                      decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(3.0),
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),

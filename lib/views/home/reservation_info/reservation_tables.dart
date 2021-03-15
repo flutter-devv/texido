@@ -22,7 +22,7 @@ class ReservationTables extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: size * 0.5),
         itemBuilder: (context, index) {
-          if (tables[index].activated)
+          if (tables[index].name.isEmpty)
             color = greenColor;
           else
             color = darkGrey03;
@@ -46,7 +46,7 @@ class ReservationTables extends StatelessWidget {
                 ),
                 SizedBox(width: size * 0.5),
                 MediumText(
-                  text: tables[index].activated ? "Available" : "Reserved",
+                  text: tables[index].name.isEmpty ? "Available" : "Reserved",
                   size: font1,
                   color: color,
                 ),

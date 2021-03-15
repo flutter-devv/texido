@@ -12,10 +12,13 @@ class GridController extends GetxController {
   RxList<TableInfo> searched5AMGuests = List<TableInfo>().obs;
   RxList<TableInfo> searched6AMGuests = List<TableInfo>().obs;
   RxList<bool> selectedTap = [true, false, false].obs;
+  RxBool didCall = false.obs;
   TextEditingController searchController = TextEditingController();
 
-  void getGridData() {
+  void getGridData(BuildContext context) {
     clearGridData();
+    didCall.value = true;
+    tableController.getTablesData(context);
     for (int i = 0; i < tableController.tables.length; ++i) {
       if (tableController.tables[i].time == "4:00 AM")
         tables4AM.add(tableController.tables[i]);
@@ -36,11 +39,5 @@ class GridController extends GetxController {
     tables4AM.clear();
     tables5AM.clear();
     tables6AM.clear();
-  }
-
-  @override
-  void onInit() {
-    getGridData();
-    super.onInit();
   }
 }

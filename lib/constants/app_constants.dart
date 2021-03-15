@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:texido_app/config/routes.dart';
 import 'package:texido_app/config/sizes.dart';
-import '../views/auth/forgot_password.dart';
-import '../views/auth/sign_in.dart';
-import '../views/qr/qr_scanning/qr_scanning.dart';
-import '../views/qr/qr_verified/qr_verified.dart';
-import '../views/home/home.dart';
-import '../views/splash/splash.dart';
 
 // app colors
 const Color appColor = Color(0xff1B2129);
@@ -58,33 +50,3 @@ double font3 = size * 0.7;
 double font4 = size * 0.8;
 double font5 = size * 0.9;
 double font6 = size;
-
-// app pages
-List<GetPage> getPages() {
-  return [
-    GetPage(
-      name: Routes.splash,
-      page: () => Splash(),
-    ),
-    GetPage(
-      name: Routes.signIn,
-      page: () => SignIn(),
-    ),
-    GetPage(
-      name: Routes.home,
-      page: () => HomeScreen(),
-    ),
-    GetPage(
-      name: Routes.barScan,
-      page: () => QRScanning(),
-    ),
-    GetPage(
-      name: Routes.qrVerified,
-      page: () => QRVerified(),
-    ),
-    GetPage(
-      name: Routes.forgotPassword,
-      page: () => ForgotPassword(),
-    ),
-  ];
-}

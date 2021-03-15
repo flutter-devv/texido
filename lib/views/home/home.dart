@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/constants/asset_constants.dart';
-import 'package:texido_app/controllers/grid.dart';
 import 'package:texido_app/controllers/reservation.dart';
 import 'package:texido_app/controllers/table.dart';
 import 'package:texido_app/views/home/grid/grid.dart';
@@ -17,8 +16,6 @@ class HomeScreen extends StatelessWidget {
   final reservationController = Get.put(ReservationController());
   @override
   Widget build(BuildContext context) {
-    tableController.getTablesData(context);
-    tableController.colorList[0] = true;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(

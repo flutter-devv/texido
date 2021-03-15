@@ -7,25 +7,12 @@ import 'package:texido_app/constants/asset_constants.dart';
 import 'package:texido_app/constants/colors_constants.dart';
 import 'package:texido_app/controllers/member.dart';
 import 'package:texido_app/widgets/custom_text.dart';
+import 'package:texido_app/config/months.dart';
 
 class MemberDate extends StatelessWidget {
   final DateTime date;
   MemberDate({this.date});
   final controller = Get.find<MemberController>();
-  final List<String> months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sept",
-    "Oct",
-    "Nov",
-    "Dec"
-  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,7 +32,7 @@ class MemberDate extends StatelessWidget {
                 }
               : null,
           child: Container(
-            width: size * 9.5,
+            width: size * 8.8,
             height: size * 2.5,
             padding: EdgeInsets.only(
                 left: size,

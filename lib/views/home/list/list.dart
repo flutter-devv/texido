@@ -13,6 +13,8 @@ class ListScreen extends StatelessWidget {
   final controller = Get.find<TableController>();
   @override
   Widget build(BuildContext context) {
+    controller.didCall.value ? null : controller.getTablesData(context);
+    controller.colorList[0] = true;
     return Container(
       color: blueGrey3,
       child: Column(

@@ -12,6 +12,7 @@ class GridScreen extends StatelessWidget {
   final gridController = Get.put(GridController());
   @override
   Widget build(BuildContext context) {
+    if (!gridController.didCall.value) gridController.getGridData(context);
     return Container(
       color: blueGrey3,
       child: Column(
@@ -30,10 +31,12 @@ class GridScreen extends StatelessWidget {
                         color: greyColor07,
                       ),
                       SizedBox(height: size * 0.5),
-                      Expanded(
-                        child: gridController.searched4AMGuests.isEmpty
-                            ? GridList(gridController.tables4AM)
-                            : GridList(gridController.searched4AMGuests),
+                      Obx(
+                        () => Expanded(
+                          child: gridController.searched4AMGuests.isEmpty
+                              ? GridList(gridController.tables4AM)
+                              : GridList(gridController.searched4AMGuests),
+                        ),
                       ),
                     ],
                   ),
@@ -49,10 +52,12 @@ class GridScreen extends StatelessWidget {
                         color: greyColor07,
                       ),
                       SizedBox(height: size * 0.5),
-                      Expanded(
-                        child: gridController.searched5AMGuests.isEmpty
-                            ? GridList(gridController.tables5AM)
-                            : GridList(gridController.searched5AMGuests),
+                      Obx(
+                        () => Expanded(
+                          child: gridController.searched5AMGuests.isEmpty
+                              ? GridList(gridController.tables5AM)
+                              : GridList(gridController.searched5AMGuests),
+                        ),
                       ),
                     ],
                   ),
@@ -68,10 +73,12 @@ class GridScreen extends StatelessWidget {
                         color: greyColor07,
                       ),
                       SizedBox(height: size * 0.5),
-                      Expanded(
-                        child: gridController.searched6AMGuests.isEmpty
-                            ? GridList(gridController.tables6AM)
-                            : GridList(gridController.searched6AMGuests),
+                      Obx(
+                        () => Expanded(
+                          child: gridController.searched6AMGuests.isEmpty
+                              ? GridList(gridController.tables6AM)
+                              : GridList(gridController.searched6AMGuests),
+                        ),
                       ),
                     ],
                   ),

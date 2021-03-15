@@ -36,10 +36,11 @@ class ReservationDetails extends StatelessWidget {
       table.time,
       table.guests,
       table.table,
-      table.notes[0],
+      table.notes,
     ];
     return Container(
       height: Get.height / 1.6,
+      width: Get.width / 2,
       color: whiteColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -52,7 +53,7 @@ class ReservationDetails extends StatelessWidget {
                 ReservationLogo(
                   guestsNumber: table.guests,
                   tableNumber: table.table,
-                  tableActivated: table.activated,
+                  tableAvailable: table.available,
                 ),
                 ListView.builder(
                   itemCount: labels.length,

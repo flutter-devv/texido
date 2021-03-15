@@ -17,7 +17,7 @@ class ViewMember extends StatelessWidget {
     return Container(
       color: AppColors.whiteColor,
       padding: EdgeInsets.symmetric(horizontal: AppSize.size),
-      margin: EdgeInsets.only(top: AppSize.size, right: AppSize.size * 0.5),
+      margin: EdgeInsets.only(top: AppSize.size),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

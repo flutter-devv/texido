@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
-import 'package:texido_app/constants/app_constants.dart';
+import 'package:texido_app/constants/colors_constants.dart';
+import 'package:texido_app/constants/sizes_constants.dart';
 import 'package:texido_app/views/qr/qr_verified/qr_verified.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 
@@ -16,7 +17,7 @@ class QRController extends GetxController {
     if (this.qrCode == qrCode)
       Get.dialog(
         QRVerified(),
-        barrierColor: blackColor.withOpacity(0.8),
+        barrierColor: AppColors.blackColor.withOpacity(0.8),
       );
     else {
       Get.defaultDialog(
@@ -24,22 +25,22 @@ class QRController extends GetxController {
         content: Column(
           children: [
             CircleAvatar(
-              radius: size * 1.8,
-              backgroundColor: redColor,
+              radius: AppSize.size * 1.8,
+              backgroundColor: AppColors.redColor,
               child: Icon(
                 Icons.close,
-                color: whiteColor,
-                size: size * 1.3,
+                color: AppColors.whiteColor,
+                size: AppSize.size * 1.3,
               ),
             ),
-            SizedBox(height: size),
+            SizedBox(height: AppSize.size),
             MediumText(
               text: "Wrong code",
-              color: whiteColor,
+              color: AppColors.whiteColor,
             ),
           ],
         ),
-        backgroundColor: blackColor.withOpacity(0.2),
+        backgroundColor: AppColors.blackColor.withOpacity(0.2),
       );
     }
   }

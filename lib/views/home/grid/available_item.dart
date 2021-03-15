@@ -7,28 +7,28 @@ import 'package:texido_app/models/table.dart';
 import 'package:texido_app/views/home/reservation_details/reservation_details.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 
-class ActivatedItem extends StatelessWidget {
+class AvailableItem extends StatelessWidget {
   final TableInfo table;
   final int tableIndex;
-  ActivatedItem(this.table, this.tableIndex);
+  AvailableItem(this.table, this.tableIndex);
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: size * 9,
-      child: GestureDetector(
-        onTap: () => Get.defaultDialog(
-          title: "",
-          content: ReservationDetails(
-            table: table,
-            index: tableIndex,
-            forDialog: true,
-          ),
-          radius: 0.0,
-          backgroundColor: Colors.transparent,
+    return GestureDetector(
+      onTap: () => Get.defaultDialog(
+        title: "",
+        content: ReservationDetails(
+          table: table,
+          index: tableIndex,
+          forDialog: true,
         ),
+        radius: 0.0,
+        backgroundColor: Colors.transparent,
+      ),
+      child: SizedBox(
+        height: size * 9,
         child: Card(
           elevation: 0.0,
-          color: blueGrey2.withOpacity(0.1),
+          color: whiteColor,
           margin: EdgeInsets.only(bottom: size, left: size),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0),
@@ -38,52 +38,37 @@ class ActivatedItem extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  height: size * 3,
-                  width: size * 3,
+                  height: size * 2.5,
+                  width: size * 4,
                   decoration: BoxDecoration(
-                    color: blueGrey2.withOpacity(0.2),
+                    color: greyColor02.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(3.0),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SemiBoldText(
-                        text: table.time,
+                        text: "TA-${table.table}",
                         color: darkGrey03,
                         size: font1,
                       ),
                     ],
                   ),
                 ),
-                SizedBox(width: size * 2),
-                Divider(color: blackColor02.withOpacity(0.05), thickness: 2),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                SizedBox(width: size),
+                Row(
                   children: [
-                    RegularText(
-                      text: table.name,
-                      size: font3,
-                      color: darkGrey04,
-                    ),
-                    SizedBox(height: size * 0.5),
                     MediumText(
-                      text: table.mobile,
+                      text: "Main room",
                       size: font1,
                       color: darkGrey04,
                     ),
-                    SizedBox(height: size * 0.5),
-                    MediumText(
-                      text: table.member,
-                      size: font1,
-                      color: darkGrey04,
-                    ),
-                    SizedBox(height: size * 0.5),
+                    SizedBox(width: size),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         SvgPicture.asset(
                           AppAssets.tap4,
-                          height: size,
+                          height: size * 0.8,
                           color: darkGrey04,
                         ),
                         SizedBox(width: size * 0.5),

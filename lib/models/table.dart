@@ -7,7 +7,7 @@ class TableInfo {
   int guests;
   int table;
   String notes;
-  bool activated;
+  bool available;
 
   TableInfo({
     this.member,
@@ -18,7 +18,7 @@ class TableInfo {
     this.guests,
     this.table,
     this.notes,
-    this.activated,
+    this.available,
   });
 
   factory TableInfo.fromMap(Map<String, dynamic> data) {
@@ -30,8 +30,7 @@ class TableInfo {
       time: data['time'],
       guests: data['guests'],
       table: data['table'],
-      notes: data['notes'],
-      activated: data['activated'],
+      available: data['available'],
     );
   }
 }

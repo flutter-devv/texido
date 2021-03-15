@@ -34,7 +34,7 @@ class MemberField extends StatelessWidget {
         ),
         SizedBox(height: size * 0.5),
         Container(
-          width: label != "Notes" ? size * 9.5 : Get.width,
+          width: label != "Notes" ? size * 8.8 : Get.width,
           child: CustomField(
             vertical: label != "Notes" ? size * 0.8 : size * 1.5,
             hint: hint,

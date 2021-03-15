@@ -5,10 +5,11 @@ import 'package:texido_app/models/table.dart';
 
 class TableController extends GetxController {
   RxList<TableInfo> tables = List<TableInfo>().obs;
-  RxList<TableInfo> activatedTables = List<TableInfo>().obs;
+  RxList<TableInfo> availableTables = List<TableInfo>().obs;
   RxList<bool> selected = [true, false, false].obs;
   RxString selectedUser = "Karem Doe".obs;
   RxList<bool> colorList = List<bool>().obs;
+  RxBool didCall = false.obs;
   RxBool cancelling = false.obs;
   RxBool newReservation = false.obs;
   RxList<bool> category = [false, true, false, false, false, false].obs;
@@ -23,9 +24,9 @@ class TableController extends GetxController {
 
   void getTablesData(BuildContext context) {
     tables.clear();
-    activatedTables.clear();
+    availableTables.clear();
+    didCall.value = true;
     String time;
-    bool activated;
     int guests;
     for (int i = 0; i < 50; ++i) {
       if (i < 10)
@@ -38,26 +39,38 @@ class TableController extends GetxController {
         guests = 04;
       else
         guests = 02;
-      if (i == 2 || i == 7 || i == 12 || i == 15)
-        activated = false;
-      else
-        activated = true;
-      tables.add(
-        TableInfo(
-          member: "Golden membership",
-          name: faker.person.firstName() + ' ' + faker.person.lastName(),
-          mobile: "+966" + ' ' + faker.randomGenerator.numbers(9, 9).join(""),
-          date: DateTime.now(),
-          time: time,
-          guests: guests,
-          table: i,
-          notes: "Happy Birthday",
-          activated: activated,
-        ),
-      );
-      for (var table in tables) {
-        if (table.activated) activatedTables.add(table);
+      if (i == 2 || i == 7 || i == 12 || i == 15) {
+        tables.add(
+          TableInfo(
+            member: '',
+            name: '',
+            mobile: '',
+            date: DateTime.now(),
+            time: time,
+            guests: guests,
+            table: i,
+            notes: '',
+            available: true,
+          ),
+        );
+      } else {
+        tables.add(
+          TableInfo(
+            member: "Golden membership",
+            name: faker.person.firstName() + ' ' + faker.person.lastName(),
+            mobile: "+966" + ' ' + faker.randomGenerator.numbers(9, 9).join(""),
+            date: DateTime.now(),
+            time: time,
+            guests: guests,
+            table: i,
+            notes: "Happy Birthday",
+            available: false,
+          ),
+        );
       }
+    }
+    for (var table in tables) {
+      if (table.available) availableTables.add(table);
     }
     colorList.assignAll(List.filled(tables.length, false));
   }

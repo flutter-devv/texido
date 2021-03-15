@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:texido_app/config/months.dart';
 import 'package:texido_app/constants/app_constants.dart';
 import 'package:texido_app/widgets/custom_text.dart';
 
@@ -9,20 +10,6 @@ class ReservationItem extends StatelessWidget {
     this.label,
     this.value,
   });
-  final List<String> months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sept",
-    "Oct",
-    "Nov",
-    "Dec"
-  ];
   @override
   Widget build(BuildContext context) {
     return Padding(

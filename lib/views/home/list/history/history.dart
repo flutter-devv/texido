@@ -6,7 +6,7 @@ import 'package:texido_app/models/table.dart';
 import 'package:texido_app/widgets/custom_button.dart';
 import 'package:texido_app/widgets/custom_field.dart';
 import 'package:texido_app/widgets/custom_text.dart';
-import 'history_item.dart';
+import 'note.dart';
 
 class History extends StatelessWidget {
   final TableInfo table;
@@ -41,7 +41,7 @@ class History extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Note(
                   userName: table.name,
-                  note: table.notes[index],
+                  note: table.notes,
                 );
               },
             ),

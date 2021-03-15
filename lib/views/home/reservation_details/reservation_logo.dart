@@ -8,11 +8,11 @@ import 'package:texido_app/widgets/custom_text.dart';
 class ReservationLogo extends StatelessWidget {
   final int guestsNumber;
   final int tableNumber;
-  final bool tableActivated;
+  final bool tableAvailable;
   ReservationLogo({
     this.guestsNumber,
     this.tableNumber,
-    this.tableActivated = false,
+    this.tableAvailable = false,
   });
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,10 @@ class ReservationLogo extends StatelessWidget {
               guestsNumber > 02 ? AppAssets.doubleTable : AppAssets.table,
               height: guestsNumber > 02 ? AppSize.size * 5 : AppSize.size * 4,
               color:
-                  tableActivated ? AppColors.greenColor : AppColors.blueGrey4,
+                  tableAvailable ? AppColors.greenColor : AppColors.blueGrey4,
             ),
             Positioned(
-              child: tableActivated
+              child: tableAvailable
                   ? SvgPicture.asset(
                       AppAssets.check,
                       height: AppSize.size * 1.5,

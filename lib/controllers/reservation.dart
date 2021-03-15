@@ -10,6 +10,7 @@ class ReservationController extends GetxController {
   Rx<DateTime> date = DateTime.now().obs;
   RxString time = "".obs;
   RxInt guests = 00.obs;
+  RxBool didCall = false.obs;
   // field controllers
   TextEditingController nameController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
@@ -23,6 +24,7 @@ class ReservationController extends GetxController {
     date.value = table.date;
     time.value = table.time;
     guests.value = table.guests;
+    didCall.value = true;
   }
 
   insertFieldsData({String name, String mobile, String note}) {
@@ -39,6 +41,12 @@ class ReservationController extends GetxController {
     controller.tables[index].time = time.value;
     controller.tables[index].guests = guests.value;
     controller.tables[index].notes = noteController.text;
+  }
+
+  clearControllers() {
+    nameController.clear();
+    mobileController.clear();
+    noteController.clear();
   }
 
   Future<void> pickDate(BuildContext context, DateTime initialDate) async {
@@ -61,13 +69,5 @@ class ReservationController extends GetxController {
       pickedTime = time;
       this.time.value = pickedTime.format(context).toString();
     }
-  }
-
-  @override
-  void dispose() {
-    nameController.clear();
-    mobileController.clear();
-    noteController.clear();
-    super.dispose();
   }
 }

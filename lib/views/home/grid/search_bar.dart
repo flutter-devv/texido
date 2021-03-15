@@ -12,61 +12,61 @@ class SearchBar extends StatelessWidget {
   final gridController = Get.find<GridController>();
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Container(
-        height: size * 5,
-        color: darkBlueColor,
-        padding: EdgeInsets.only(
-          left: size,
-          top: size * 1.2,
-          bottom: size * 1.2,
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: CustomField(
-                hint: "Search Guest",
-                vertical: size,
-                filled: true,
-                errorText: true,
-                filledColor: whiteColor,
-                prefix: Icon(Icons.search, size: size * 1.5),
-                fieldController: gridController.searchController,
-                onChanged: (newValue) {
+    return Container(
+      height: size * 5,
+      color: darkBlueColor,
+      padding: EdgeInsets.only(
+        left: size,
+        top: size * 1.2,
+        bottom: size * 1.2,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: CustomField(
+              hint: "Search Guest",
+              vertical: size,
+              filled: true,
+              errorText: true,
+              filledColor: whiteColor,
+              prefix: Icon(Icons.search, size: size * 1.5),
+              fieldController: gridController.searchController,
+              onChanged: (newValue) {
+                gridController.clearSearchedData();
+                if (newValue == "") {
                   gridController.clearSearchedData();
-                  if (newValue == "") {
-                    gridController.clearSearchedData();
-                  } else {
-                    tableController.tables.forEach(
-                      (e) {
-                        if (e.name
-                            .toLowerCase()
-                            .contains(newValue.toLowerCase())) {
-                          if (e.time == "4:00 AM")
-                            gridController.searched4AMGuests.add(e);
-                          else if (e.time == "5:00 AM")
-                            gridController.searched5AMGuests.add(e);
-                          else
-                            gridController.searched6AMGuests.add(e);
-                        }
-                      },
-                    );
-                  }
-                },
-                validate: (newValue) {
-                  if (gridController.searched4AMGuests.isEmpty &&
-                      gridController.searched5AMGuests.isEmpty &&
-                      gridController.searched6AMGuests.isEmpty &&
-                      newValue != "") {
-                    return "";
-                  }
-                },
-                autoValidate: true,
-              ),
+                } else {
+                  tableController.tables.forEach(
+                    (e) {
+                      if (e.name
+                          .toLowerCase()
+                          .contains(newValue.toLowerCase())) {
+                        if (e.time == "4:00 AM")
+                          gridController.searched4AMGuests.add(e);
+                        else if (e.time == "5:00 AM")
+                          gridController.searched5AMGuests.add(e);
+                        else
+                          gridController.searched6AMGuests.add(e);
+                      }
+                    },
+                  );
+                }
+              },
+              validate: (newValue) {
+                if (gridController.searched4AMGuests.isEmpty &&
+                    gridController.searched5AMGuests.isEmpty &&
+                    gridController.searched6AMGuests.isEmpty &&
+                    newValue != "") {
+                  return "";
+                }
+              },
+              autoValidate: true,
             ),
-            SizedBox(width: size * 2),
-            Expanded(
+          ),
+          SizedBox(width: size * 2),
+          Obx(
+            () => Expanded(
               flex: 2,
               child: Row(
                 children: [
@@ -81,7 +81,7 @@ class SearchBar extends StatelessWidget {
                         gridController.selectedTap
                             .assignAll(List.filled(3, false));
                         gridController.selectedTap[0] = true;
-                        gridController.getGridData();
+                        gridController.getGridData(context);
                       }),
                   SizedBox(width: size * 0.8),
                   CustomButton(
@@ -95,7 +95,7 @@ class SearchBar extends StatelessWidget {
                         gridController.selectedTap
                             .assignAll(List.filled(3, false));
                         gridController.selectedTap[1] = true;
-                        gridController.getGridData();
+                        gridController.getGridData(context);
                       }),
                   SizedBox(width: size * 0.8),
                   CustomButton(
@@ -109,7 +109,7 @@ class SearchBar extends StatelessWidget {
                       gridController.selectedTap
                           .assignAll(List.filled(3, false));
                       gridController.selectedTap[2] = true;
-                      gridController.getGridData();
+                      gridController.getGridData(context);
                     },
                   ),
                   SizedBox(width: size * 0.8),
@@ -139,8 +139,8 @@ class SearchBar extends StatelessWidget {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
